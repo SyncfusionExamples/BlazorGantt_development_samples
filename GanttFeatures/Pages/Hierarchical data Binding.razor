@@ -1,0 +1,274 @@
+﻿@page "/Hierarchydata"
+
+@using Syncfusion.Blazor.Gantt
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.TreeGrid
+@using Syncfusion.Blazor.Navigations
+
+<button @onclick="AddRow">Add Row</button>
+<button @onclick="Delete">Delete Row</button>
+<button @onclick="ZoomIn">Zoom In</button>
+<button @onclick="ZoomOut">Zoom Out</button>
+<button @onclick="ZoomToFit">ZoomToFit</button>
+<button @onclick="ClearFiltering">Clear Filtering</button>
+<button @onclick="ClearSorting">ClearSorting</button>
+<button @onclick="CollapseAll">CollapseAll</button>
+<button @onclick="ExpandAll">ExpandAll</button>
+<button @onclick="Indent">Indent</button>
+<button @onclick="Outdent">Outdent</button>
+<button @onclick="OpenAddDialog">OpenAddDialog</button>
+
+<SfGantt 
+    @ref="Gantt" 
+    DataSource="@TaskCollection"
+    Height="450px"
+    Width="1200px" 
+    Toolbar="@(new List<string>() { "Add", "Cancel", "CollapseAll", "Delete", "Edit", "ExpandAll", "NextTimeSpan", "PrevTimeSpan", "Search", "Update" , "Indent" , "Outdent" ,"ZoomIn", "ZoomOut", "ZoomToFit"})" 
+    AllowReordering="true" 
+    ShowColumnMenu="true" 
+    AllowSelection="true" 
+    EnableContextMenu="true" 
+    AllowFiltering="true" 
+    AllowSorting="true" 
+    AllowResizing="true" 
+    EnablePredecessorValidation="true">
+
+    <GanttTaskFields 
+        Id="TaskId" 
+        Name="TaskName" 
+        StartDate="StartDate" 
+        EndDate="EndDate" 
+        Duration="Duration" 
+        Progress="Progress" 
+        Dependency="Predecessor" 
+        Child="SubTasks">
+    </GanttTaskFields>
+
+    <GanttSelectionSettings Mode="SelectionMode.Row" Type="Syncfusion.Blazor.Grids.SelectionType.Multiple"></GanttSelectionSettings>
+
+    <GanttEditSettings 
+        AllowTaskbarEditing="true" 
+        AllowEditing="true" 
+        AllowAdding="true" 
+        AllowDeleting="true" 
+        Mode="Syncfusion.Blazor.Gantt.EditMode.Auto" 
+        ShowDeleteConfirmDialog="true">
+    </GanttEditSettings>
+
+
+</SfGantt>
+
+@code{
+    public SfGantt<TaskData> Gantt;
+    
+    public TaskData record = new TaskData() { TaskId = 9, TaskName = "New Added Record", StartDate = new DateTime(2019, 04, 02), Duration = "3", Progress = 50};
+
+    public List<TaskData> TaskCollection { get; set; }
+    
+     public void AddRow()
+        {
+        this.Gantt.AddRecord(record, 2, Syncfusion.Blazor.Gantt.RowPosition.Below);
+        }
+
+    public void Delete()
+        {
+        this.Gantt.DeleteRecord();
+        }
+
+    public void ZoomIn()
+        {
+        this.Gantt.ZoomIn();
+        }
+
+    public void ZoomOut()
+        {
+        this.Gantt.ZoomOut();
+        }
+
+    public void ZoomToFit()
+        {
+        this.Gantt.ZoomToFit();
+        }
+
+    public void ClearFiltering()
+        {
+        this.Gantt.ClearFiltering();    
+        }
+    
+    public void ClearSorting()
+        {
+        this.Gantt.ClearSorting();    
+        }
+    
+    public void CollapseAll()
+        {
+        this.Gantt.CollapseAll();    
+        }
+    
+    public void ExpandAll()
+        {
+        this.Gantt.ExpandAll();    
+        }
+
+    public void Indent()
+        {
+        this.Gantt.Indent();    
+        }
+
+    public void Outdent()
+        {
+        this.Gantt.Outdent();    
+        }
+
+    public void OpenAddDialog()
+        {
+        this.Gantt.OpenAddDialog();    
+        }
+
+    protected override void OnInitialized()
+    
+    {
+    this.TaskCollection = GetTaskCollection();
+    }
+
+    public class TaskData
+    {
+    public int TaskId { get; set; }
+    public string TaskName { get; set; }
+    public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
+    public string Duration { get; set; }
+    public int Progress { get; set; }
+    public string Predecessor { get; set; }
+    public List<TaskData> SubTasks { get; set; }
+    }
+
+    public static List<TaskData> GetTaskCollection()
+    {
+    List<TaskData> Tasks = new List<TaskData>()
+    {
+    new TaskData() {
+        TaskId = 1,
+        TaskName = "Project initiation",
+        StartDate = new DateTime(2019, 04, 02),
+        EndDate = new DateTime(2019, 04, 21),
+        SubTasks = (new List <TaskData> () {
+            new TaskData() {
+                TaskId = 2,
+                TaskName = "Identify Site location",
+                StartDate = new DateTime(2019, 04, 02),
+                Duration = "0",
+                Progress = 30
+            },
+            new TaskData() {
+                TaskId = 3,
+                TaskName = "Perform soil test",
+                StartDate = new DateTime(2019, 04, 02),
+                Duration = "4",
+                Progress = 40
+            },
+            new TaskData() {
+                TaskId = 4,
+                TaskName = "Soil test approval",
+                StartDate = new DateTime(2019, 04, 02),
+                Duration = "0",
+                Progress = 30,
+                Predecessor = "2"
+            },
+        })
+    },
+    new TaskData() {
+        TaskId = 5,
+        TaskName = "Project estimation",
+        StartDate = new DateTime(2019, 04, 02),
+        EndDate = new DateTime(2019, 04, 21),
+        SubTasks = (new List <TaskData> () {
+            new TaskData() {
+                TaskId = 6,
+                TaskName = "Develop floor plan for estimation",
+                StartDate = new DateTime(2019, 04, 04),
+                Duration = "3",
+                Progress = 30
+            },
+            new TaskData() {
+                TaskId = 7,
+                TaskName = "List materials",
+                StartDate = new DateTime(2019, 04, 04),
+                Duration = "3",
+                Progress = 40,
+                Predecessor = "4"
+            },
+            new TaskData() {
+                TaskId = 8,
+                TaskName = "Estimation approval",
+                StartDate = new DateTime(2019, 04, 04),
+                Duration = "0",
+                Progress = 30,
+                Predecessor = "6"
+            }
+        })
+    },
+     new TaskData() {
+        TaskId = 9,
+        TaskName = "Project initiation",
+        StartDate = new DateTime(2019, 04, 02),
+        EndDate = new DateTime(2019, 04, 21),
+        SubTasks = (new List <TaskData> () {
+            new TaskData() {
+                TaskId = 10,
+                TaskName = "Identify Site location",
+                StartDate = new DateTime(2019, 04, 02),
+                Duration = "0",
+                Progress = 30,
+            },
+            new TaskData() {
+                TaskId = 11,
+                TaskName = "Perform soil test",
+                StartDate = new DateTime(2019, 04, 02),
+                Duration = "4",
+                Progress = 40,
+            },
+            new TaskData() {
+                TaskId = 12,
+                TaskName = "Soil test approval",
+                StartDate = new DateTime(2019, 04, 02),
+                Duration = "0",
+                Progress = 30,
+                Predecessor = "10"
+            },
+        })
+    },
+     new TaskData() {
+        TaskId = 13,
+        TaskName = "Project estimation",
+        StartDate = new DateTime(2019, 04, 02),
+        EndDate = new DateTime(2019, 04, 21),
+        SubTasks = (new List <TaskData> () {
+            new TaskData() {
+                TaskId = 14,
+                TaskName = "Develop floor plan for estimation",
+                StartDate = new DateTime(2019, 04, 04),
+                Duration = "3",
+                Progress = 30
+            },
+            new TaskData() {
+                TaskId = 15,
+                TaskName = "List materials",
+                StartDate = new DateTime(2019, 04, 04),
+                Duration = "3",
+                Progress = 40,
+                Predecessor = "14"
+            },
+            new TaskData() {
+                TaskId = 16,
+                TaskName = "Estimation approval",
+                StartDate = new DateTime(2019, 04, 04),
+                Duration = "0",
+                Progress = 30
+            }
+        })
+    }
+};
+return Tasks;
+}
+}

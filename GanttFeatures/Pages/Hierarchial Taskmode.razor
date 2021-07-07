@@ -1,0 +1,203 @@
+@page "/HierarchydataTaskmode"
+
+@using Syncfusion.Blazor.Gantt
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.TreeGrid
+
+<SfGantt 
+    @ref="Gantt" 
+    DataSource="@TaskCollection"
+    Height="450px"
+    Width="1200px" 
+    Toolbar="@(new List<string>() { "Add", "Cancel", "CollapseAll", "Delete", "Edit", "ExpandAll", "NextTimeSpan", "PrevTimeSpan", "Search", "Update" , "Indent" , "Outdent" ,"ZoomIn", "ZoomOut", "ZoomToFit"})" 
+    AllowReordering="true" 
+    ShowColumnMenu="true" 
+    AllowSelection="true" 
+    EnableContextMenu="true" 
+    AllowFiltering="true" 
+    AllowSorting="true" 
+    AllowResizing="true" 
+    TaskMode="ScheduleMode.Custom"
+    EnablePredecessorValidation="true">
+
+    <GanttTaskFields 
+        Id="TaskId" 
+        Name="TaskName" 
+        StartDate="StartDate" 
+        EndDate="EndDate" 
+        Duration="Duration" 
+        Progress="Progress" 
+        Dependency="Predecessor" 
+        Manual="IsManual"
+        Child="SubTasks">
+    </GanttTaskFields>
+
+    <GanttSelectionSettings Mode="SelectionMode.Row" Type="Syncfusion.Blazor.Grids.SelectionType.Multiple"></GanttSelectionSettings>
+
+    <GanttEditSettings 
+        AllowTaskbarEditing="true" 
+        AllowEditing="true" 
+        AllowAdding="true" 
+        AllowDeleting="true" 
+        Mode="Syncfusion.Blazor.Gantt.EditMode.Auto" 
+        ShowDeleteConfirmDialog="true">
+    </GanttEditSettings>
+
+    <GanttTimelineSettings TimelineViewMode="TimelineViewMode.Day"></GanttTimelineSettings>
+
+
+</SfGantt>
+
+@code{
+    public SfGantt<TaskData> Gantt;
+
+    public List<TaskData> TaskCollection { get; set; }
+    protected override void OnInitialized()
+    {
+    this.TaskCollection = GetTaskCollection();
+    }
+
+    public class TaskData
+    {
+    public int TaskId { get; set; }
+    public string TaskName { get; set; }
+    public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
+    public string Duration { get; set; }
+    public int Progress { get; set; }
+    public string Predecessor { get; set; }
+    public List<TaskData> SubTasks { get; set; }
+    public string IsManual { get; set; }
+    public string TaskMode { get; set; }
+    }
+
+    public static List<TaskData> GetTaskCollection()
+    {
+    List<TaskData> Tasks = new List<TaskData>()
+    {
+    new TaskData() {
+        TaskId = 1,
+        TaskName = "Project initiation",
+        StartDate = new DateTime(2019, 04, 02),
+        EndDate = new DateTime(2019, 04, 21),
+        IsManual="true",
+        SubTasks = (new List <TaskData> () {
+            new TaskData() {
+                TaskId = 2,
+                TaskName = "Identify Site location",
+                StartDate = new DateTime(2019, 04, 02),
+                Duration = "0",
+                Progress = 30
+            },
+            new TaskData() {
+                TaskId = 3,
+                TaskName = "Perform soil test",
+                StartDate = new DateTime(2019, 04, 02),
+                Duration = "4",
+                Progress = 40,
+                IsManual="true",
+            },
+            new TaskData() {
+                TaskId = 4,
+                TaskName = "Soil test approval",
+                StartDate = new DateTime(2019, 04, 02),
+                Duration = "0",
+                Progress = 30
+            },
+        })
+    },
+    new TaskData() {
+        TaskId = 5,
+        TaskName = "Project estimation",
+        StartDate = new DateTime(2019, 04, 02),
+        EndDate = new DateTime(2019, 04, 21),
+        SubTasks = (new List <TaskData> () {
+            new TaskData() {
+                TaskId = 6,
+                TaskName = "Develop floor plan for estimation",
+                StartDate = new DateTime(2019, 04, 04),
+                Duration = "3",
+                Progress = 30,
+                IsManual="true",
+            },
+            new TaskData() {
+                TaskId = 7,
+                TaskName = "List materials",
+                StartDate = new DateTime(2019, 04, 04),
+                Duration = "3",
+                Progress = 40
+            },
+            new TaskData() {
+                TaskId = 8,
+                TaskName = "Estimation approval",
+                StartDate = new DateTime(2019, 04, 04),
+                Duration = "0",
+                Progress = 30,
+                IsManual="true",
+            }
+        })
+    },
+     new TaskData() {
+        TaskId = 9,
+        TaskName = "Project initiation",
+        StartDate = new DateTime(2019, 04, 02),
+        EndDate = new DateTime(2019, 04, 21),
+        SubTasks = (new List <TaskData> () {
+            new TaskData() {
+                TaskId = 10,
+                TaskName = "Identify Site location",
+                StartDate = new DateTime(2019, 04, 02),
+                Duration = "0",
+                Progress = 30,
+                IsManual="true",
+            },
+            new TaskData() {
+                TaskId = 11,
+                TaskName = "Perform soil test",
+                StartDate = new DateTime(2019, 04, 02),
+                Duration = "4",
+                Progress = 40,
+            },
+            new TaskData() {
+                TaskId = 12,
+                TaskName = "Soil test approval",
+                StartDate = new DateTime(2019, 04, 02),
+                Duration = "0",
+                Progress = 30,
+                IsManual="true",
+            },
+        })
+    },
+     new TaskData() {
+        TaskId = 13,
+        TaskName = "Project estimation",
+        StartDate = new DateTime(2019, 04, 02),
+        EndDate = new DateTime(2019, 04, 21),
+        SubTasks = (new List <TaskData> () {
+            new TaskData() {
+                TaskId = 14,
+                TaskName = "Develop floor plan for estimation",
+                StartDate = new DateTime(2019, 04, 04),
+                Duration = "3",
+                Progress = 30
+            },
+            new TaskData() {
+                TaskId = 15,
+                TaskName = "List materials",
+                StartDate = new DateTime(2019, 04, 04),
+                Duration = "3",
+                Progress = 40
+            },
+            new TaskData() {
+                TaskId = 16,
+                TaskName = "Estimation approval",
+                StartDate = new DateTime(2019, 04, 04),
+                Duration = "0",
+                Progress = 30
+            }
+        })
+    }
+};
+return Tasks;
+}
+}
