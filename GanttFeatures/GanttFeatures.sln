@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GanttFeatures", "GanttFeatures.csproj", "{EB67FA5B-6786-4DA4-BFFD-7F87719D0554}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syncfusion.Blazor", "..\ej2-blazor-source-Hotfix19.2\Syncfusion.Blazor\Syncfusion.Blazor.csproj", "{EC7BD98B-B40F-498B-81C3-FBCC4F4AE995}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB67FA5B-6786-4DA4-BFFD-7F87719D0554}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB67FA5B-6786-4DA4-BFFD-7F87719D0554}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB67FA5B-6786-4DA4-BFFD-7F87719D0554}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB67FA5B-6786-4DA4-BFFD-7F87719D0554}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC7BD98B-B40F-498B-81C3-FBCC4F4AE995}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC7BD98B-B40F-498B-81C3-FBCC4F4AE995}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC7BD98B-B40F-498B-81C3-FBCC4F4AE995}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC7BD98B-B40F-498B-81C3-FBCC4F4AE995}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {963524C4-23E0-477F-A69D-4270B620C860}
+	EndGlobalSection
+EndGlobal

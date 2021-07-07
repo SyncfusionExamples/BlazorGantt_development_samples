@@ -1,0 +1,234 @@
+@page "/SelfReferenceWork"
+@using Syncfusion.Blazor.Gantt
+
+<SfGantt 
+    @ref="Gantt" 
+    DataSource="@TaskCollection" 
+    Toolbar="@(new List<string>() { "Add", "Cancel", "CollapseAll", "Delete", "Edit", "ExpandAll", "Update" , "Indent" , "Outdent" ,"ZoomIn", "ZoomOut", "ZoomToFit"})" 
+    Height="450px" 
+    Width="1200px"   
+    WorkUnit="WorkUnit.Hour">
+
+    <GanttTaskFields 
+        Id="TaskId" 
+        Name="TaskName" 
+        StartDate="StartDate" 
+        EndDate="EndDate" 
+        Duration="Duration" 
+        Progress="Progress" 
+        ParentID="ParentId" 
+        Work="Work" 
+        ResourceInfo="Resources" 
+        TaskType="TaskType">
+    </GanttTaskFields>
+
+    <GanttEditSettings 
+        AllowAdding="true" 
+        AllowDeleting="true" 
+        AllowEditing="true" 
+        AllowTaskbarEditing="true" 
+        ShowDeleteConfirmDialog="true" 
+        Mode="EditMode.Auto">
+    </GanttEditSettings>
+
+    <GanttTimelineSettings TimelineUnitSize="75">
+        <GanttTopTierSettings Unit="TimelineViewMode.Day" Format="MMM dd,yyyy"></GanttTopTierSettings>
+        <GanttBottomTierSettings Unit="TimelineViewMode.Hour" Format="h.mm tt"></GanttBottomTierSettings>
+    </GanttTimelineSettings>
+
+    <GanttResourceFields Resources="GetResources" Id="ResourceId" Name="ResourceName" Unit="Unit" TResources="ResourceData"></GanttResourceFields>
+
+
+</SfGantt>
+
+@code{
+    public SfGantt<TaskData> Gantt;
+    public List<TaskData> TaskCollection { get; set; }
+    protected override void OnInitialized()
+    {
+        this.TaskCollection = GetTaskCollection();
+    }
+    public class ResourceData
+    {
+        public int ResourceId { get; set; }
+        public string ResourceName { get; set; }
+        public int Unit { get; set; }
+
+    }
+    List<ResourceData> GetResources = new List<ResourceData>()
+        {  
+    new ResourceData() { ResourceId= 1, ResourceName= "Martin Tamer" ,Unit=70},
+    new ResourceData() { ResourceId= 2, ResourceName= "Rose Fuller" },
+    new ResourceData() { ResourceId= 3, ResourceName= "Margaret Buchanan" },
+    new ResourceData() { ResourceId= 4, ResourceName= "Fuller King" },
+    new ResourceData() { ResourceId= 5, ResourceName= "Davolio Fuller" },
+    new ResourceData() { ResourceId= 6, ResourceName= "Van Jack" },
+    new ResourceData() { ResourceId= 7, ResourceName= "Fuller Buchanan" },
+    new ResourceData() { ResourceId= 8, ResourceName= "Jack Davolio" },
+    new ResourceData() { ResourceId= 9, ResourceName= "Tamer Vinet" },
+    new ResourceData() { ResourceId= 10, ResourceName= "Vinet Fuller" },
+    new ResourceData() { ResourceId= 11, ResourceName= "Bergs Anton" },
+    new ResourceData() { ResourceId= 12, ResourceName= "Construction Supervisor" }
+        };
+
+    public class TaskData
+    {
+        public int TaskId { get; set; }
+        public string TaskName { get; set; }
+        public string TaskType { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string Duration { get; set; }
+        public int Progress { get; set; }
+        public int? ParentId { get; set; }
+        public double? Work { get; set; }
+        public List<ResourceData> Resources { get; set; }
+
+    }
+    public static List<TaskData> GetTaskCollection()
+    {
+        List<TaskData> Tasks = new List<TaskData>() {
+
+        new TaskData() {
+            TaskId = 1,
+            TaskName = "Project initiation",
+            StartDate = new DateTime(2019, 03, 29),
+            EndDate = new DateTime(2019, 04, 21),
+            TaskType ="FixedDuration"
+        },
+        new TaskData() {
+            TaskId = 2,
+            TaskName = "Identify Site location",
+            StartDate = new DateTime(2019, 03, 29),
+            Progress = 30,
+            ParentId = 1,
+            Work=16,
+            Resources = new List<ResourceData>(){ new ResourceData() { ResourceId=1,Unit=70} ,new ResourceData() { ResourceId=6} }
+        },
+        new TaskData() {
+            TaskId = 3,
+            TaskName = "Perform soil test",
+            StartDate = new DateTime(2019, 03, 29),
+            Resources = new List<ResourceData>(){ new ResourceData() { ResourceId=2} ,new ResourceData() { ResourceId=3} ,new ResourceData() { ResourceId=5} },
+            ParentId = 1,
+            Work=96
+        },
+        new TaskData() {
+            TaskId = 4,
+            TaskName = "Soil test approval",
+            StartDate = new DateTime(2019, 03, 29),
+            Duration = "1",
+            Progress = 30,
+            ParentId = 1,
+            Resources = new List<ResourceData>(){ new ResourceData() { ResourceId=8} ,new ResourceData() { ResourceId=9} },
+            Work=16
+        },
+        new TaskData() {
+            TaskId = 5,
+            TaskName = "Project estimation",
+            StartDate = new DateTime(2019, 03, 29),
+            EndDate = new DateTime(2019, 04, 21)
+        },
+        new TaskData() {
+            TaskId = 6,
+            TaskName = "Develop floor plan for estimation",
+            StartDate = new DateTime(2019, 03, 29),
+            Duration = "3",
+            Progress = 30,
+            ParentId = 5,
+            Resources = new List<ResourceData>(){ new ResourceData() { ResourceId=4} },
+            Work=30
+        },
+        new TaskData() {
+            TaskId = 7,
+            TaskName = "List materials",
+            StartDate = new DateTime(2019, 04, 01),
+            Duration = "3",
+            Progress = 30,
+            ParentId = 5,
+            Work=48,
+                        Resources = new List<ResourceData>(){ new ResourceData() { ResourceId=4},new ResourceData() { ResourceId=8} },
+
+        },
+        new TaskData() {
+            TaskId = 8,
+            TaskName = "Estimation approval",
+            StartDate = new DateTime(2019, 04, 01),
+            Duration = "2",
+            ParentId = 5,
+            Work=60,
+            Resources = new List<ResourceData>(){ new ResourceData() { ResourceId= 12},new ResourceData() { ResourceId= 5} },
+
+        },
+        new TaskData() {
+            TaskId = 9,
+            TaskName = "Project initiation",
+            StartDate = new DateTime(2019, 04, 02),
+            EndDate = new DateTime(2019, 04, 21)
+        },
+        new TaskData() {
+            TaskId = 10,
+            TaskName = "Identify Site location",
+            StartDate = new DateTime(2019, 04, 01),
+            Duration = "1",
+            ParentId = 9,
+            Work=24,
+            Resources = new List<ResourceData>(){ new ResourceData() { ResourceId= 12}}
+
+        },
+        new TaskData() {
+            TaskId = 11,
+            TaskName = "Perform soil test",
+            StartDate = new DateTime(2019, 04, 02),
+            Duration = "4",
+            Progress = 40,
+            ParentId = 9,
+            Work=48
+        },
+        new TaskData() {
+            TaskId = 12,
+            TaskName = "Soil test approval",
+            StartDate = new DateTime(2019, 04, 02),
+            Duration = "0",
+            Progress = 30,
+            ParentId = 9,
+            Work=56
+        },
+        new TaskData() {
+            TaskId = 13,
+            TaskName = "Project estimation",
+            StartDate = new DateTime(2019, 04, 02),
+            EndDate = new DateTime(2019, 04, 21)
+        },
+        new TaskData() {
+            TaskId = 14,
+            TaskName = "Develop floor plan for estimation",
+            StartDate = new DateTime(2019, 04, 04),
+            Duration = "3",
+            Progress = 30,
+            ParentId = 13,
+            Work=4
+        },
+        new TaskData() {
+            TaskId = 15,
+            TaskName = "List materials",
+            StartDate = new DateTime(2019, 04, 04),
+            Duration = "3",
+            Progress = 40,
+            ParentId = 13,
+            Work=8
+        },
+        new TaskData() {
+            TaskId = 16,
+            TaskName = "Estimation approval",
+            StartDate = new DateTime(2019, 04, 04),
+            Duration = "0",
+            Progress = 30,
+            ParentId = 13,
+            Work=12
+        }
+    };
+        return Tasks;
+    }
+}
+
