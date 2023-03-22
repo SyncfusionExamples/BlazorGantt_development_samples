@@ -1,9 +1,218 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+@using Syncfusion.Blazor.TreeGrid;
+    <div style="  margin: 1% auto;    display: grid;    grid-template-columns: repeat(2, 1fr);" width="100%">
+        <div class="Gantt" style="width:29%;float:left">
+       <b>Gantt Demo</b>
+            <SfTreeGrid Height="400px" Width="100%" DataSource="@Data" IdMapping="S_NO" ParentIdMapping="ParentId" TreeColumnIndex="0" AllowFiltering="true">
+        <TreeGridColumns>
+            <TreeGridColumn Field="URL" HeaderText="Sample"  TextAlign="Syncfusion.Blazor.Grids.TextAlign.Left">
+                <Template>
+                    @{
+                        var url = (context as Object);
 
-<h1>Hello, world!</h1>
+                        @if (url.URL == "Data Binding")
+                        {
+                            <b>Data Binding</b>
+                        }
 
-Welcome to your new app.
+                        else if (url.URL == "Self-Referential")
+                        {
+                         <b>Self-Referential</b>
+                        }
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+                        else if (url.URL == "Hierarchical data Binding")
+                        {
+                            <b>Hierarchical data Binding</b>
+                        }
+
+                        else if (url.URL == "Hierarchical data Binding default")
+                        {
+                            <div>
+                                <a target="_blank" href="/Hierarchical_data_Binding" id="DataBinding">@url.URL</a>
+                            </div>
+                        }
+
+                        else if (url.URL == "Self-Referential default")
+                        {
+                            <div>
+                                <a target="_blank" href="/Self-Referential" id="DataBinding">@url.URL</a>
+                            </div>
+                        }
+
+                        else if (url.URL == "ExpandoObject Binding")
+                        {
+                            <div>
+                                <a target="_blank" href="/ExpandoObject_Binding" id="DataBinding">@url.URL</a>
+                            </div>
+                        }
+
+                        else if ((url.URL == "DynamicObject binding"))
+                        {
+                            <div>
+                                <a target="_blank" href="/DynamicObject_binding" id="DataBinding">@url.URL</a>
+                            </div>
+                        }
+                    }
+                </Template>
+            </TreeGridColumn>
+        </TreeGridColumns>
+        <TreeGridFilterSettings HierarchyMode="@FilterHierarchyMode.Parent" Type="Syncfusion.Blazor.TreeGrid.FilterType.Menu"></TreeGridFilterSettings>
+    </SfTreeGrid>
+    </div>
+
+    <div class="TreeGrid" style="width:29%;float:left;margin-left:40px" >
+        <b> Grid & Treegrid Demo </b>
+        <SfTreeGrid Height="400px" Width="100%" DataSource="@Data2" IdMapping="S_NO" ParentIdMapping="ParentId" TreeColumnIndex="0" AllowFiltering="true">
+        <TreeGridColumns>
+            <TreeGridColumn Field="URL1" HeaderText="Sample" TextAlign="Syncfusion.Blazor.Grids.TextAlign.Left">
+                <Template>
+                    @{
+                        var url1 = (context as Object);
+                        @if (url1.URL1 == "Selection")
+                        {
+                            <b>Selection</b>
+                        }
+
+                        else if (url1.URL1 == "TreeGrid Selection")
+                        {
+                            <b>Treegrid Selection</b>
+                        }
+                        else if (url1.URL1 == "Grid Selection")
+                        {
+                            <b>Grid Selection</b>
+                        }
+
+                        else if (url1.URL1 == "cellselection")
+                        {
+                            <div>
+                                    <a target="_blank" href="/Cellselection" id="selection">@url1.URL1</a>
+                            </div>
+                        }
+
+                        else if (url1.URL1 == "checkboxselection")
+                        {
+                            <div>
+                                    <a target="_blank" href="/Checkboxselection" id="selection">@url1.URL1</a>
+                            </div>
+                        }
+                        else if ((url1.URL1 == "Toggleselection"))
+                        {
+                            <div>
+                                    <a target="_blank" href="/Toggleselection" id="selection">@url1.URL1</a>
+                            </div>
+                        }
+                        else if ((url1.URL1 == "TreeGridSelectionDefault"))
+                        {
+                            <div>
+                                    <a target="_blank" href="/TreeGridSelectionDefault" id="selection">@url1.URL1</a>
+                            </div>
+                        }
+                        else if ((url1.URL1 == "GridSelectionDefault"))
+                        {
+                            <div>
+                                <a target="_blank" href="/GridSelectionDefault" id="selection">@url1.URL1</a>
+                            </div>
+                        }
+                        else if ((url1.URL1 == "GridCheckboxSelection"))
+                        {
+                            <div>
+                                <a target="_blank" href="/GridCheckboxSelection" id="selection">@url1.URL1</a>
+                            </div>
+                        }
+                        else if ((url1.URL1 == "GridCellSelection"))
+                        {
+                            <div>
+                                <a target="_blank" href="/GridCellSelection" id="selection">@url1.URL1</a>
+                            </div>
+                        }
+                        else if ((url1.URL1 == "GridToggleselection"))
+                        {
+                            <div>
+                                <a target="_blank" href="/GridToggleselection" id="selection">@url1.URL1</a>
+                            </div>
+                        }
+                    }
+                </Template>
+            </TreeGridColumn>
+        </TreeGridColumns>
+        <TreeGridFilterSettings HierarchyMode="@FilterHierarchyMode.Parent" Type="Syncfusion.Blazor.TreeGrid.FilterType.Menu"></TreeGridFilterSettings>
+    </SfTreeGrid>
+    </div>
+
+
+    <div class="TreeGrid" style="width:29%;float:left;margin-left:40px">
+        <b>BST </b>
+        <SfTreeGrid Height="400px" Width="100%" DataSource="@Data3" IdMapping="S_NO" ParentIdMapping="ParentId" TreeColumnIndex="0" AllowFiltering="true">
+            <TreeGridColumns>
+                <TreeGridColumn Field="" HeaderText="Name"></TreeGridColumn>
+                <TreeGridColumn Field="" HeaderText="" TextAlign="Syncfusion.Blazor.Grids.TextAlign.Right">
+                </TreeGridColumn>
+            </TreeGridColumns>
+            <TreeGridFilterSettings HierarchyMode="@FilterHierarchyMode.Parent" Type="Syncfusion.Blazor.TreeGrid.FilterType.Menu"></TreeGridFilterSettings>
+        </SfTreeGrid>
+    </div>
+</div>
+@code {
+    public class Object
+    {
+        public int S_NO { get; set; }
+        public string URL { get; set; }
+        public string URL1 { get; set; }
+        public int? ParentId { get; set; }
+    }
+
+        public List<Object> Data = new List<Object>();
+        public List<Object> Data2 = new List<Object>();
+    public List<Object> Data3 = new List<Object>();
+
+        protected override void OnInitialized()
+        {
+            this.Data = GetTaskCollection().ToList();
+            this.Data2 = GetSelectionData().ToList();
+            this.Data3 = GetBSTData().ToList();
+
+        }
+        public static List<Object> GetTaskCollection()
+        {
+            List<Object> Tasks = new List<Object>() {
+            new Object() { S_NO = 1, URL = "Data Binding" },
+            new Object() { S_NO = 2,URL = "Self-Referential", ParentId = 1 },
+            new Object() { S_NO = 3, URL = "Self-Referential default", ParentId = 2 },
+            new Object() { S_NO = 4, URL = "ExpandoObject Binding", ParentId = 2 },
+            new Object() { S_NO = 5,  URL = "DynamicObject binding", ParentId = 2 },
+
+            new Object() { S_NO = 6, URL = "Hierarchical data Binding",ParentId=1 },
+            new Object() { S_NO = 7,  URL = "Hierarchical data Binding default", ParentId = 6 },
+        };
+            return Tasks;
+        }
+
+        public static List<Object> GetSelectionData()
+        {
+            List<Object> Tasks1 = new List<Object>() {
+            new Object() { S_NO = 1,URL1 = "Selection" },
+            new Object() { S_NO = 2,URL1 = "TreeGrid Selection", ParentId = 1 },
+            new Object() { S_NO = 3,URL1 = "TreeGridSelectionDefault", ParentId = 2 },
+            new Object() { S_NO = 4,URL1 = "cellselection", ParentId = 2 },
+            new Object() { S_NO = 5,URL1 = "checkboxselection", ParentId = 2 },
+            new Object() { S_NO = 6,URL1 = "Toggleselection", ParentId = 2 },
+
+            new Object() { S_NO = 7,URL1 = "Grid Selection", ParentId = 1 },
+            new Object() { S_NO = 8,URL1 = "GridSelectionDefault", ParentId = 7 },
+            new Object() { S_NO = 9,URL1 = "GridCellSelection", ParentId = 7 },
+            new Object() { S_NO = 10,URL1 = "GridCheckboxSelection", ParentId = 7 },
+            new Object() { S_NO = 11,URL1 = "GridToggleselection", ParentId = 7},
+        };
+            return Tasks1;
+        }
+
+    public static List<Object> GetBSTData()
+    {
+        List<Object> Tasks1 = new List<Object>() {
+            
+        };
+        return Tasks1;
+    }
+}
+
