@@ -1,8 +1,0 @@
-D:\Demo_folder\BlazorGantt_development_samples\Gantt Chart Server\Ganttfeatures\obj\Debug\net7.0\Ganttfeatures.csproj.AssemblyReference.cache
-D:\Demo_folder\BlazorGantt_development_samples\Gantt Chart Server\Ganttfeatures\obj\Debug\net7.0\Ganttfeatures.GeneratedMSBuildEditorConfig.editorconfig
-D:\Demo_folder\BlazorGantt_development_samples\Gantt Chart Server\Ganttfeatures\obj\Debug\net7.0\Ganttfeatures.AssemblyInfoInputs.cache
-D:\Demo_folder\BlazorGantt_development_samples\Gantt Chart Server\Ganttfeatures\obj\Debug\net7.0\Ganttfeatures.AssemblyInfo.cs
-D:\Demo_folder\BlazorGantt_development_samples\Gantt Chart Server\Ganttfeatures\obj\Debug\net7.0\Ganttfeatures.csproj.CoreCompileInputs.cache
-D:\Demo_folder\BlazorGantt_development_samples\Gantt Chart Server\Ganttfeatures\obj\Debug\net7.0\Ganttfeatures.MvcApplicationPartsAssemblyInfo.cache
-D:\Demo_folder\BlazorGantt_development_samples\Gantt Chart Server\Ganttfeatures\obj\Debug\net7.0\Ganttfeatures.RazorAssemblyInfo.cache
-D:\Demo_folder\BlazorGantt_development_samples\Gantt Chart Server\Ganttfeatures\obj\Debug\net7.0\Ganttfeatures.RazorAssemblyInfo.cs
