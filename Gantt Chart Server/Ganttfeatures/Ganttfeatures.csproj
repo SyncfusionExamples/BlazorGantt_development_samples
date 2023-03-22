@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Pages\BST\" />
-    <Folder Include="Pages\Grid\" />
   </ItemGroup>
 
 </Project>
