@@ -1,0 +1,113 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Ganttfeatures
+build_property.RootNamespace = Ganttfeatures
+build_property.ProjectDir = D:\Demo_folder\BlazorGantt_development_samples\Gantt Chart Server\Ganttfeatures\
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\Demo_folder\BlazorGantt_development_samples\Gantt Chart Server\Ganttfeatures
+build_property._RazorSourceGeneratorDebug = 
+
+[D:/Demo_folder/BlazorGantt_development_samples/Gantt Chart Server/Ganttfeatures/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Demo_folder/BlazorGantt_development_samples/Gantt Chart Server/Ganttfeatures/Pages/Counter.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Demo_folder/BlazorGantt_development_samples/Gantt Chart Server/Ganttfeatures/Pages/FetchData.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Demo_folder/BlazorGantt_development_samples/Gantt Chart Server/Ganttfeatures/Pages/Gantt/DataBinding/DynamicObject_binding.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR2FudHRcRGF0YUJpbmRpbmdcRHluYW1pY09iamVjdF9iaW5kaW5nLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Demo_folder/BlazorGantt_development_samples/Gantt Chart Server/Ganttfeatures/Pages/Gantt/DataBinding/ExpandoObject_Binding.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR2FudHRcRGF0YUJpbmRpbmdcRXhwYW5kb09iamVjdF9CaW5kaW5nLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Demo_folder/BlazorGantt_development_samples/Gantt Chart Server/Ganttfeatures/Pages/Gantt/DataBinding/Hierarchical data Binding.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR2FudHRcRGF0YUJpbmRpbmdcSGllcmFyY2hpY2FsIGRhdGEgQmluZGluZy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Demo_folder/BlazorGantt_development_samples/Gantt Chart Server/Ganttfeatures/Pages/Gantt/DataBinding/Self-Referential.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR2FudHRcRGF0YUJpbmRpbmdcU2VsZi1SZWZlcmVudGlhbC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Demo_folder/BlazorGantt_development_samples/Gantt Chart Server/Ganttfeatures/Pages/Grid/Selection/GridCellSelection.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR3JpZFxTZWxlY3Rpb25cR3JpZENlbGxTZWxlY3Rpb24ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Demo_folder/BlazorGantt_development_samples/Gantt Chart Server/Ganttfeatures/Pages/Grid/Selection/GridCheckboxSelection.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR3JpZFxTZWxlY3Rpb25cR3JpZENoZWNrYm94U2VsZWN0aW9uLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Demo_folder/BlazorGantt_development_samples/Gantt Chart Server/Ganttfeatures/Pages/Grid/Selection/GridSelectionDefault.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR3JpZFxTZWxlY3Rpb25cR3JpZFNlbGVjdGlvbkRlZmF1bHQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Demo_folder/BlazorGantt_development_samples/Gantt Chart Server/Ganttfeatures/Pages/Grid/Selection/GridToggleSelection.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR3JpZFxTZWxlY3Rpb25cR3JpZFRvZ2dsZVNlbGVjdGlvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Demo_folder/BlazorGantt_development_samples/Gantt Chart Server/Ganttfeatures/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Demo_folder/BlazorGantt_development_samples/Gantt Chart Server/Ganttfeatures/Pages/TreeGrid/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVHJlZUdyaWRcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Demo_folder/BlazorGantt_development_samples/Gantt Chart Server/Ganttfeatures/Pages/TreeGrid/Selection/Cellselection.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVHJlZUdyaWRcU2VsZWN0aW9uXENlbGxzZWxlY3Rpb24ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Demo_folder/BlazorGantt_development_samples/Gantt Chart Server/Ganttfeatures/Pages/TreeGrid/Selection/Checkboxselection.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVHJlZUdyaWRcU2VsZWN0aW9uXENoZWNrYm94c2VsZWN0aW9uLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Demo_folder/BlazorGantt_development_samples/Gantt Chart Server/Ganttfeatures/Pages/TreeGrid/Selection/Selection mode.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVHJlZUdyaWRcU2VsZWN0aW9uXFNlbGVjdGlvbiBtb2RlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Demo_folder/BlazorGantt_development_samples/Gantt Chart Server/Ganttfeatures/Pages/TreeGrid/Selection/Toggle selection.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVHJlZUdyaWRcU2VsZWN0aW9uXFRvZ2dsZSBzZWxlY3Rpb24ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Demo_folder/BlazorGantt_development_samples/Gantt Chart Server/Ganttfeatures/Pages/TreeGrid/Selection/TreeGridSelectionDefaullt.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVHJlZUdyaWRcU2VsZWN0aW9uXFRyZWVHcmlkU2VsZWN0aW9uRGVmYXVsbHQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Demo_folder/BlazorGantt_development_samples/Gantt Chart Server/Ganttfeatures/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Demo_folder/BlazorGantt_development_samples/Gantt Chart Server/Ganttfeatures/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Demo_folder/BlazorGantt_development_samples/Gantt Chart Server/Ganttfeatures/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-lwxlz9xnl5
+
+[D:/Demo_folder/BlazorGantt_development_samples/Gantt Chart Server/Ganttfeatures/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-93m7k9csjb
+
+[D:/Demo_folder/BlazorGantt_development_samples/Gantt Chart Server/Ganttfeatures/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Demo_folder/BlazorGantt_development_samples/Gantt Chart Server/Ganttfeatures/Pages/_Host.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
