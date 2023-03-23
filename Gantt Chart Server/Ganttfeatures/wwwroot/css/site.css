@@ -63,6 +63,13 @@ a, .btn-link {
     color: white;
 }
 
-    .blazor-error-boundary::after {
+ .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+.e-gridcontainer{
+    display: flex;
+    grid-gap: 50px;
+    padding:10px;
+
+}
