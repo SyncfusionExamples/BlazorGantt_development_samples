@@ -1,0 +1,67 @@
+﻿@page "/Frozen/ColumnTemplate"
+
+
+@using Syncfusion.Blazor.TreeGrid;
+@using Syncfusion.Blazor.Layouts;
+
+<SfSplitter Height="450px" Width="900px">
+    <SplitterPanes>
+        <SplitterPane Size="900px">
+            <ContentTemplate>
+                <SfTreeGrid DataSource="@TreeData" GridLines="Syncfusion.Blazor.Grids.GridLine.Both" AllowResizing="true" AllowReordering="true" IdMapping="TaskId" FrozenColumns="2" AllowFreezeLineMoving="true" ParentIdMapping="ParentId" TreeColumnIndex="0" Width="100%" Height="100%">
+                    <TreeGridColumns>
+                        <TreeGridColumn IsPrimaryKey Field="TaskId" HeaderText="Task ID" Width="100"></TreeGridColumn>
+                        <TreeGridColumn Field="TaskName" HeaderText="Task Name" Width="150"></TreeGridColumn>
+                        <TreeGridColumn Field="Progress" HeaderText="Progress" Width="150"></TreeGridColumn>
+                        <TreeGridColumn Field="Column1" Width="150"></TreeGridColumn>
+                        <TreeGridColumn Field="Column2" Width="150">
+                            <Template>
+                                <div>
+                                   <p>Template Content</p>
+                                </div>
+                            </Template>
+                        </TreeGridColumn>
+                        <TreeGridColumn Field="Column3" Width="150"></TreeGridColumn>
+                    </TreeGridColumns>
+                    <TreeGridEditSettings AllowAdding="true" AllowDeleting="true" AllowEditing="true"></TreeGridEditSettings>
+                </SfTreeGrid>
+            </ContentTemplate>
+        </SplitterPane>
+        <SplitterPane>
+            <ContentTemplate>
+                <div>
+                    second part
+                </div>
+            </ContentTemplate>
+        </SplitterPane>
+    </SplitterPanes>
+</SfSplitter>
+@code {
+    public class BusinessObject
+    {
+        public int TaskId { get; set; }
+        public string TaskName { get; set; }
+        public int Duration { get; set; }
+        public int Progress { get; set; }
+        public string Priority { get; set; }
+        public int? ParentId { get; set; }
+        public string? Column1 { get; set; }
+        public string? Column2 { get; set; }
+        public string? Column3 { get; set; }
+    }
+
+    public List<BusinessObject> TreeData = new List<BusinessObject>();
+
+    protected override void OnInitialized()
+    {
+        TreeData.Add(new BusinessObject() { TaskId = 1, TaskName = "Parent Task 1", Duration = 10, Progress = 70, ParentId = null, Priority = "High" });
+        TreeData.Add(new BusinessObject() { TaskId = 2, TaskName = "Child task 1", Duration = 4, Progress = 80, ParentId = 1, Priority = "Normal" });
+        TreeData.Add(new BusinessObject() { TaskId = 3, TaskName = "Child Task 2", Duration = 5, Progress = 65, ParentId = 1, Priority = "Critical" });
+        TreeData.Add(new BusinessObject() { TaskId = 4, TaskName = "Parent Task 2", Duration = 6, Progress = 77, ParentId = null, Priority = "Low" });
+        TreeData.Add(new BusinessObject() { TaskId = 5, TaskName = "Child Task 5", Duration = 9, Progress = 25, ParentId = 4, Priority = "Normal" });
+        TreeData.Add(new BusinessObject() { TaskId = 6, TaskName = "Child Task 6", Duration = 9, Progress = 7, ParentId = 5, Priority = "Normal" });
+        TreeData.Add(new BusinessObject() { TaskId = 7, TaskName = "Parent Task 3", Duration = 4, Progress = 45, ParentId = null, Priority = "High" });
+        TreeData.Add(new BusinessObject() { TaskId = 8, TaskName = "Child Task 7", Duration = 3, Progress = 38, ParentId = 7, Priority = "Critical" });
+        TreeData.Add(new BusinessObject() { TaskId = 9, TaskName = "Child Task 8", Duration = 7, Progress = 70, ParentId = 7, Priority = "Low" });
+    }
+}
