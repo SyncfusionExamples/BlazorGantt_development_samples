@@ -39,7 +39,7 @@
             new TaskData() { ID = 10,Name = "GridCheckboxSelection", PID = 7 },
             new TaskData() { ID = 11,Name = "GridToggleselection", PID = 7},
             new TaskData() { ID = 12, Name = "Frozen"},
-            new TaskData() { ID = 13, Name = "FrozenTemplateColumns", Url="Frozen/ColumnTemplate", PID = 12}
+            new TaskData() { ID = 13, Name = "FrozenTemplateColumns", Url="TreeGrid/Frozen/ColumnTemplate", PID = 12}
         };
             return Tasks1;
         }
