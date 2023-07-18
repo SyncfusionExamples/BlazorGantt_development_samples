@@ -20,6 +20,10 @@
             new TaskData() { ID = 5,  Name = "DynamicObject binding", PID = 2 },
             new TaskData() { ID = 6, Name = "Hierarchical data Binding",PID=1 },
             new TaskData() { ID = 7,  Name = "Hierarchical data Binding default", PID = 6 },
+            new TaskData() { ID = 8, Name = "ResourceView"  },
+            new TaskData() { ID = 9, Name = "ResourceView", Url="ResourceView", PID = 8 },
+            new TaskData() { ID = 10, Name = "Columns"  },
+            new TaskData() { ID = 11, Name = "DateOnlyTimeOnly", Url="DateOnlyTimeOnly", PID = 10 },
         };
             return Tasks;
         }
