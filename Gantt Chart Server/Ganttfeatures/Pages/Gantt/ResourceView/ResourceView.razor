@@ -1,0 +1,66 @@
+﻿@page "/ResourceView"
+@using Syncfusion.Blazor.Gantt
+
+<SfGantt ShowOverallocation="true" DataSource="@TaskCollection" Height="450px" Width="800px" AllowRowDragAndDrop="true"
+            Toolbar="@(new List<Object>() { "Add", "Cancel", "Update" , "Delete", "Edit", "CollapseAll", "ExpandAll" })" ViewType="ViewType.ResourceView">
+    <GanttTaskFields Id="TaskId" Name="TaskName" StartDate="StartDate" EndDate="EndDate" Duration="Duration" Progress="Progress"
+                        ParentID="ParentId" Work="Work" ResourceInfo="Resources" Dependency="Predecessor">
+    </GanttTaskFields>
+    <GanttResourceFields Group="ResourceGroup" Resources="@ResourceCollection" Id="ResourceId" Name="ResourceName" Unit="Unit" TResources="ResourceAlloacteData"></GanttResourceFields>
+    <GanttLabelSettings RightLabel="Resources" TaskLabel="Progress" TValue="TaskData"></GanttLabelSettings>
+    <GanttEditSettings AllowAdding="true" AllowDeleting="true" AllowEditing="true" AllowTaskbarEditing="true"></GanttEditSettings>
+</SfGantt>
+
+@code {
+    private List<TaskData> TaskCollection { get; set; }
+    private List<ResourceAlloacteData> ResourceCollection { get; set; }
+    protected override void OnInitialized()
+    {
+        this.TaskCollection = GetTaskCollection();
+        this.ResourceCollection = GetResources;
+    }
+    public class ResourceAlloacteData
+    {
+        public int ResourceId { get; set; }
+        public string ResourceName { get; set; }
+        public double Unit { get; set; }
+        public string? ResourceGroup { get; set; }
+    }
+    public static List<ResourceAlloacteData> GetResources = new List<ResourceAlloacteData>()
+    {
+        new ResourceAlloacteData() { ResourceId= 1, ResourceName= "Martin Tamer", ResourceGroup="Planning Team"},
+        new ResourceAlloacteData() { ResourceId= 2, ResourceName= "Rose Fuller", ResourceGroup="Testing Team" },
+        new ResourceAlloacteData() { ResourceId= 3, ResourceName= "Margaret Buchanan", ResourceGroup="Approval Team" },
+        new ResourceAlloacteData() { ResourceId= 4, ResourceName= "Fuller King", ResourceGroup="Development Team" },
+        new ResourceAlloacteData() { ResourceId= 5, ResourceName= "Davolio Fuller", ResourceGroup="Approval Team" },
+    };
+    public class TaskData
+    {
+        public int TaskId { get; set; }
+        public string TaskName { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string Duration { get; set; }
+        public int Progress { get; set; }
+        public int? ParentId { get; set; }
+        public string Predecessor { get; set; }
+        public string Notes { get; set; }
+        public double? Work { get; set; }
+        public string TaskType { get; set; }
+        public List<ResourceAlloacteData> Resources { get; set; }
+    }
+    public static List<TaskData> GetTaskCollection()
+    {
+        List<TaskData> Tasks = new List<TaskData>() {
+            new TaskData() { TaskId = 1, TaskName = "Project initiation", StartDate = new DateTime(2022, 03, 28), EndDate = new DateTime(2022, 07, 28), TaskType ="FixedDuration", Work=128, Duration="4" },
+            new TaskData() { TaskId = 2, TaskName = "Identify Site location", StartDate = new DateTime(2022, 03, 29), Progress = 30, ParentId = 1, Duration="5", Work=16, Resources = new List<ResourceAlloacteData>(){ new ResourceAlloacteData() { ResourceId=1, Unit=70} } },
+            new TaskData() { TaskId = 3, TaskName = "Site Analyze", StartDate = new DateTime(2022, 03, 29), Progress = 50, ParentId = 1, Duration="5", Work=16, Resources = new List<ResourceAlloacteData>(){ new ResourceAlloacteData() { ResourceId=1, Unit=70} } },
+            new TaskData() { TaskId = 4, TaskName = "Perform soil test", StartDate = new DateTime(2022, 03, 29), Resources = new List<ResourceAlloacteData>(){ new ResourceAlloacteData() { ResourceId=3} }, ParentId = 1, Work=96, Duration="6", TaskType="FixedWork", Predecessor="2FS", Progress=40 },
+            new TaskData() { TaskId = 5, TaskName = "Soil test approval", StartDate = new DateTime(2022, 03, 29), Duration="4", Progress = 30, ParentId = 1, Resources = new List<ResourceAlloacteData>(){ new ResourceAlloacteData() { ResourceId=4} }, Work=16, TaskType="FixedWork" },
+            new TaskData() { TaskId = 6, TaskName = "Project estimation", StartDate = new DateTime(2022, 03, 29), EndDate = new DateTime(2022, 04, 2), TaskType="FixedDuration", Duration="7", Progress=40, Work=50 },
+            new TaskData() { TaskId = 7, TaskName = "Develop floor plan for estimation", StartDate = new DateTime(2022, 03, 29), Duration = "9", Progress = 30, ParentId = 5, Resources = new List<ResourceAlloacteData>(){ new ResourceAlloacteData() { ResourceId=4, Unit=30} }, Work=30, TaskType="FixedDuration",  Predecessor= "4FS" },
+            new TaskData() { TaskId = 8, TaskName = "List materials", StartDate = new DateTime(2022, 04, 01), Duration = "6", Progress = 30, ParentId = 5, TaskType="FixedWork", Work=48, Resources = new List<ResourceAlloacteData>(){new ResourceAlloacteData() { ResourceId=5} },  },
+       };
+        return Tasks;
+    }
+}
