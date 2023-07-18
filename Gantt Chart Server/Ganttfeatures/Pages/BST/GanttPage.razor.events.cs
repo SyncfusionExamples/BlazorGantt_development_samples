@@ -1,7 +1,7 @@
 ﻿using Syncfusion.Blazor.Gantt;
 using Syncfusion.Blazor.Grids;
 
-namespace Ganttfeatures.Pages.BST.Gantt
+namespace Ganttfeatures.Pages.BST
 {
     public partial class GanttPage
     {
