@@ -48,7 +48,7 @@
         {
             List<TaskData> Tasks1 = new List<TaskData>()
             {
-
+                 new TaskData() { ID = 1, Name = "RowVirtual", Url="BST/Gantt/GanttPage"}
             };
             return Tasks1;
         }

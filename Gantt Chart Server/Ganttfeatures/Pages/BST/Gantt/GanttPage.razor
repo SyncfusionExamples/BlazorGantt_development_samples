@@ -1,0 +1,715 @@
+﻿@page "/BST/Gantt/GanttPage"
+@using Syncfusion.Blazor.Gantt
+@using Syncfusion.Blazor.Grids
+
+<div style="height:100vh; width:100vw">
+<div style="height:184px"></div>
+<SfGantt @ref="taskGantt" TValue="BstTaskData" Height="calc(100% - 184px)"
+    Width ="100%"
+    DataSource="@TaskCollection"
+    HighlightWeekends="true"
+    WorkWeek="workWeek"
+    ProjectStartDate="projectStart"
+    ProjectEndDate="projectEnd"
+    AllowReordering="true"
+    AllowResizing="true"
+    AllowSorting="false"
+    TreeColumnIndex="0"
+    GridLines="Syncfusion.Blazor.Gantt.GridLine.None"
+    EnablePredecessorValidation="false"
+    EnableColumnVirtualization="true"
+    EnableRowVirtualization="true"
+    ConnectorLineWidth="2"
+    ScrollToTaskbarOnClick="false"
+    DependencyTypes="dependencyType"
+    AllowRowDragAndDrop="true">
+    <GanttTaskFields Id="TaskId" Name="Name" StartDate="StartDate" EndDate="FinishDate"
+        Duration="Duration" ParentID="ParentTaskId" Dependency="PredecessorsString" ExpandState="Expanded"/>
+    <GanttEditSettings AllowAdding="true" AllowDeleting="true" AllowEditing="true" AllowTaskbarEditing="true"/>
+    <GanttSelectionSettings Mode="SelectionMode.Row" Type="SelectionType.Multiple" AllowDragSelection="true" EnableToggle="true"/>
+    <GanttEvents TValue="BstTaskData"
+          OnActionComplete="ActionCompletedHandler" SplitterResized="SplitterResized"
+          ColumnResized="OnColumnResized" OnRowDragStart="RowDragStart"
+          RowDropped="RowDropping" RowSelecting="RowSelecting"
+          RowDeselecting="RowDeselecting" Collapsed="RowCollapsed"
+          Expanded="RowExpanded" TaskbarEditing="TaskbarEditing"/>
+    <GanttTemplates TValue="BstTaskData">
+        <ParentTaskbarTemplate>
+            <div class="e-gantt-parent-taskbar e-custom-parent">
+                <div class="e-gantt-parent-progressbar" style="width:@((context as BstTaskData).Progress)%">
+                    <span class="e-task-label">@((context as BstTaskData).Progress)</span>
+                </div>
+            </div>
+        </ParentTaskbarTemplate>
+        <TaskbarTemplate>
+            <div class="e-gantt-child-taskbar e-custom-child" style="">
+                <div class="e-gantt-child-progressbar" style="width:@((context as BstTaskData).Progress)%">
+                </div>
+                <span class="e-task-label">@((context as BstTaskData).Progress)</span>
+            </div>
+        </TaskbarTemplate>
+        <MilestoneTemplate>
+            <div style="margin-top:-3px;">
+                <div class="e-gantt-milestone" style="position:absolute;">
+                    <div class="e-milestone-top">
+                    </div>
+                    <div class="e-milestone-bottom">
+                    </div>
+                </div>
+            </div>
+        </MilestoneTemplate>
+    </GanttTemplates>
+    <GanttTooltipSettings ShowTooltipOnEditing="true" ShowTooltip="false" TValue="BstTaskData">
+        <EditingTemplate>
+             @if (context is { StartDate: var startDate, FinishDate: var finishDate, Duration: var duration } &&
+                taskbarEditAction is leftResizing or rightResizing or childDrag or parentDrag)
+             {
+                 <div class="task-edit-tooltip@(taskbarEditAction is childDrag or parentDrag ? " task-edit-tooltip--flex" : string.Empty)">
+                   @switch (taskbarEditAction)
+                   {
+                      case childDrag:
+                      case parentDrag:
+                           <div>
+                               <div>Start</div>
+                               <div>@startDate</div>
+                           </div>
+                           <div>
+                                <div>End</div>
+                                <div>@finishDate</div>
+                           </div>
+                       break;
+                       case leftResizing:
+                            <div>Start</div>
+                            <div>@duration</div>
+                       break;
+                       case rightResizing:
+                            <div>End</div>
+                            <div>@duration</div>
+                       break;
+                   }
+                 </div>
+             }
+         </EditingTemplate>
+    </GanttTooltipSettings>      
+    <GanttColumns>
+        @for (var i = 0; i < TreeColumns.Count; i++)
+        {
+            var col = TreeColumns[i];
+            var field = col.Field;
+            var classNames = string.Empty;
+            if (field == "StartDate" || field=="EndDate")
+            {
+                classNames = "app-icon-calendar";
+            }
+            else if (field == "Progress")
+            {
+                classNames = "app-icon-progress";
+            }
+            else if (field == "Duration")
+            {
+                classNames = "app-icon-time";
+            }
+            if (field == "Name")
+            {
+                <GanttColumn Field="@col.Field" HeaderText="@col.HeaderText"
+                    Width="@col.Width" ClipMode="ClipMode.Clip">
+                    <HeaderTemplate>
+                        <div>
+                             <i class="app-icon-job_title"> </i>
+                             Job Name
+                        </div>
+                    </HeaderTemplate>
+                    <Template>
+                    @{
+                         var template = (context as BstTaskData);
+                         <div>
+                              <i class="app-icon-job_title"> </i>
+                              @template.Name
+                         </div>    
+                     }
+                    </Template>
+               </GanttColumn>
+           } 
+           else
+           {
+               <GanttColumn Field="@col.Field" HeaderText="@col.HeaderText"
+                    Width="@col.Width" ClipMode="ClipMode.Clip">
+                    <HeaderTemplate>
+                         <div>
+                              <i class="@classNames"> </i>
+                              @col.HeaderText
+                         </div>
+                    </HeaderTemplate>
+                </GanttColumn>
+            }
+        }
+    </GanttColumns>
+    <GanttHolidays>
+       <GanttHoliday From="@Holiday1" To="@Holiday2" ></GanttHoliday>
+    </GanttHolidays>
+     @*Dynamic values are provided for both position and view property of splitter settings in BST sample. Here provided fixed values.*@
+    <GanttSplitterSettings Collapsible="true" Position="25%" View="SplitterView.Default" />
+</SfGantt>
+ </div>
+
+@code {
+    public SfGantt<BstTaskData> taskGantt;
+    private DateTime Holiday1 = new DateTime(2021, 04, 08);
+    private DateTime Holiday2 = new DateTime(2021, 04, 09);
+    private List<BstTaskData> TaskCollection { get; set; }
+    private List<GanttColumn>  TreeColumns = new List<GanttColumn>() {
+       new GanttColumn() { Field="TaskId", HeaderText="ID", Width="100"},
+       new GanttColumn() { Field="Name", HeaderText="Task Name", Width="250"},
+       new GanttColumn() { Field="StartDate", HeaderText="Start Date", Width="140"},
+       new GanttColumn() { Field="FinishDate", HeaderText="End Date", Width="140"},
+       new GanttColumn() { Field="Duration", HeaderText="Duration", Width="140"},
+       new GanttColumn() { Field="Progress", HeaderText="Progress", Width="140"},
+       new GanttColumn() { Field="PredecessorsString", HeaderText="Dependency", Width="170"},
+       new GanttColumn() { Field="Done", HeaderText="Status", Width="170"},
+       new GanttColumn() { Field="IsMilestone", HeaderText="Is Milestone", Width="170"}
+    };
+    protected override void OnInitialized()
+    {
+        this.TaskCollection = EditingData().ToList();
+    }
+    public class BstTaskData
+    {
+        public int TaskId { get; set; }
+        public string Name { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? FinishDate { get; set; }
+        public string Duration { get; set; }
+        public string PredecessorsString { get; set; }
+        public int? ParentTaskId { get; set; }
+        public int? Progress { get; set; }
+        public bool Expanded { get; set; }
+        public string Done { get; set; }
+        public bool IsMilestone { get; set; }
+    }
+        public static List<BstTaskData> EditingData()
+        {
+            List<BstTaskData> Tasks = new List<BstTaskData>() {
+                new BstTaskData() {
+                    TaskId = 1,
+                    Name = "Product concept",
+                    StartDate = new DateTime(2021, 04, 02),
+                    FinishDate = new DateTime(2021, 04, 08),
+                    Duration = "5 days",
+                    Expanded = false,
+                    Done = "Yes"
+                },
+                new BstTaskData() {
+                    TaskId = 2,
+                    Name = "Defining the product usage",
+                    StartDate = new DateTime(2021, 04, 05),
+                    FinishDate = new DateTime(2021, 04, 08),
+                    Duration = "25",
+                    Progress = 30,
+                    ParentTaskId = 1,
+                    Expanded = true,
+                    Done = "No"
+                },
+                new BstTaskData() {
+                    TaskId = 3,
+                    Name = "Defining the target audience",
+                    StartDate = new DateTime(2021, 04, 02),
+                    FinishDate = new DateTime(2021, 04, 04),
+                    Duration = "25",
+                    Progress = 40,
+                    ParentTaskId = 1,
+                    PredecessorsString = "2",
+                    Expanded = true,
+                    Done = "No",
+                    IsMilestone = true
+                },
+                new BstTaskData() {
+                    TaskId = 4,
+                    Name = "Prepare product sketch and notes",
+                    StartDate = new DateTime(2021, 04, 05),
+                    FinishDate = new DateTime(2021, 04, 08),
+                    Duration = "25",
+                    Progress = 30,
+                    ParentTaskId = 1,
+                    PredecessorsString="3",
+                    Expanded = true,
+                    Done = "No"
+                },
+                new BstTaskData() {
+                    TaskId = 5,
+                    Name = "Concept approval",
+                    StartDate = new DateTime(2021, 04, 08),
+                    FinishDate = new DateTime(2021, 04, 08),
+                    Expanded = true,
+                    Done = "Yes"
+                },
+                new BstTaskData() {
+                    TaskId = 6,
+                    Name = "Market research",
+                    StartDate = new DateTime(2021, 04, 09),
+                    FinishDate = new DateTime(2021, 04, 18),
+                    Duration = "25",
+                    Progress = 30,
+                    ParentTaskId = 5,
+                    Expanded = true,
+                    Done = "No"
+                },
+                new BstTaskData() {
+                    TaskId = 7,
+                    Name = "Demand analysis",
+                    StartDate = new DateTime(2021, 04, 09),
+                    FinishDate = new DateTime(2021, 04, 12),
+                    Duration = "25",
+                    Progress = 40,
+                    ParentTaskId = 5,
+                    Expanded = true,
+                    Done = "No",
+                    PredecessorsString = "6+2",
+                    IsMilestone = true
+                },
+                new BstTaskData() {
+                    TaskId = 8,
+                    Name = "Customer strength",
+                    StartDate = new DateTime(2021, 04, 09),
+                    FinishDate = new DateTime(2021, 04, 12),
+                    Duration = "25",
+                    Progress = 30,
+                    ParentTaskId = 5,
+                    Expanded = true, PredecessorsString="7-2",
+                    Done = "No"
+                },
+                 new BstTaskData() {
+                    TaskId = 9,
+                    Name = "Market opportunity analysis",
+                    StartDate = new DateTime(2021, 04, 09),
+                    FinishDate = new DateTime(2021, 04, 012),
+                    Expanded = true,
+                    Done = "Yes"
+                },
+                new BstTaskData() {
+                    TaskId = 10,
+                    Name = "Customer Strength",
+                    StartDate = new DateTime(2021, 04, 15),
+                    FinishDate = new DateTime(2021, 04, 18),
+                    Duration = "4",
+                    Progress = 30,
+                    ParentTaskId = 9,
+                    Expanded = false,
+                    Done = "Yes"
+                },
+                new BstTaskData() {
+                    TaskId = 11,
+                    Name = "Competitor analysis",
+                    StartDate = new DateTime(2021, 04, 15),
+                    FinishDate = new DateTime(2021, 04, 18),
+                    Duration = "4",
+                    Progress = 40,
+                    ParentTaskId = 10,
+                    Expanded = true,
+                    Done = "Yes"
+                },
+                new BstTaskData() {
+                    TaskId = 12,
+                    Name = "Product Strength Analysis",
+                    StartDate = new DateTime(2021, 04, 18),
+                    FinishDate = new DateTime(2021, 04, 18),
+                    Duration = "25",
+                    Progress = 30,
+                    ParentTaskId = 11,
+                    Expanded = true,
+                    Done = "No"
+                },
+                new BstTaskData() {
+                    TaskId = 13,
+                    Name = "Project estimation",
+                    StartDate = new DateTime(2021, 04, 19),
+                    FinishDate = new DateTime(2021, 05, 16),
+                    Duration="20",
+                    Expanded = true,
+                    Done = "Yes"
+                },
+                new BstTaskData() {
+                    TaskId = 14,
+                    Name = "Develop floor plan for estimation",
+                    StartDate = new DateTime(2021, 04, 19),
+                    FinishDate = new DateTime(2021, 04, 23),
+                    Duration = "3",
+                    Progress = 30,
+                    ParentTaskId = 13,
+                    Expanded = true,
+                    Done = "Yes"
+                },
+                new BstTaskData() {
+                    TaskId = 15,
+                    Name = "List materials",
+                    StartDate = new DateTime(2021, 04, 19),
+                    FinishDate = new DateTime(2021, 04, 23),
+                    Duration = "3",
+                    Progress = 40,
+                    ParentTaskId = 14,
+                    Expanded = true,
+                    Done = "Yes"
+                },
+                new BstTaskData() {
+                    TaskId = 16,
+                    Name = "Estimation approval",
+                    StartDate = new DateTime(2021, 04, 24),
+                    FinishDate = new DateTime(2021, 04, 25),
+                    Duration = "2",
+                    Progress = 30,
+                    ParentTaskId = 15,
+                    Expanded = true,
+                    Done = "Yes"
+                },
+                new BstTaskData() {
+                    TaskId = 17,
+                    Name = "Identifying raw mayerials",
+                    StartDate = new DateTime(2021, 04, 24),
+                    Duration = "6",
+                    ParentTaskId=16,
+                    Expanded = true,
+                    Done = "Yes"
+                },
+                new BstTaskData() {
+                    TaskId = 18,
+                    Name = "Define cost plan",
+                    StartDate = new DateTime(2021, 04, 26),
+                    FinishDate = new DateTime(2021, 04, 29),
+                    Duration = "2",
+                    Progress = 30,
+                    ParentTaskId=17,
+                    Expanded = true,
+                    Done = "Yes"
+                },
+                new BstTaskData() {
+                    TaskId = 19,
+                    Name = "Manufacturing cost",
+                    StartDate = new DateTime(2021, 04, 26),
+                    FinishDate = new DateTime(2021, 04, 29),
+                    Duration = "2",
+                    Progress = 40,
+                    ParentTaskId = 18,
+                    Expanded = true,
+                    Done = "Yes"
+                },
+                new BstTaskData() {
+                    TaskId = 20,
+                    Name = "Selling cost",
+                    StartDate = new DateTime(2021, 04, 26),
+                    FinishDate = new DateTime(2021, 04, 29),
+                    Duration = "2",
+                    Progress = 30,
+                    ParentTaskId = 19,
+                    Expanded = true,
+                    Done = "Yes"
+                },
+                new BstTaskData() {
+                    TaskId = 21,
+                    Name = "Development of final design",
+                    StartDate = new DateTime(2021, 04, 30),
+                    Duration = "5",
+                    ParentTaskId=20,
+                    Expanded = true,
+                    Done = "Yes"
+                },
+                new BstTaskData() {
+                    TaskId = 22,
+                    Name = "Develope dimensions and design",
+                    StartDate = new DateTime(2021, 04, 30),
+                    Duration = "15",
+                    Progress = 30,
+                    ParentTaskId=21,
+                    Expanded = true,
+                    Done = "Yes"
+                },
+                new BstTaskData() {
+                    TaskId = 23,
+                    Name = "Develope designs to meet industry",
+                    StartDate = new DateTime(2021, 05, 02),
+                    Duration = "15",
+                    Progress = 40,
+                    ParentTaskId = 22,
+                    Expanded = true,
+                    Done = "Yes"
+                },
+                new BstTaskData() {
+                    TaskId = 24,
+                    Name = "Include all the deatails",
+                    StartDate = new DateTime(2021, 05, 06),
+                    Duration = "25",
+                    Progress = 30,
+                    ParentTaskId = 23,
+                    Expanded = true,
+                    Done = "No"
+                },
+                new BstTaskData() {
+                    TaskId = 25,
+                    Name = "CAD - Computer Aided Design",
+                    StartDate = new DateTime(2021, 05, 09),
+                    FinishDate = new DateTime(2021, 05, 13),
+                    Duration="3",
+                    PredecessorsString="24"
+                },
+                new BstTaskData() {
+                    TaskId = 26,
+                    Name = "CAM - Computer Aided Manufacturing",
+                    StartDate = new DateTime(2021, 05, 14),
+                    FinishDate = new DateTime(2021, 05, 16),
+                    Duration = "3",
+                    Progress = 30,
+                    PredecessorsString="25"
+                },
+                new BstTaskData() {
+                    TaskId = 27,
+                    Name = "Finalize the design",
+                    StartDate = new DateTime(2021, 04, 16),
+                    FinishDate = new DateTime(2021, 04, 16),
+                    Duration = "0",
+                    Progress = 40,
+                    PredecessorsString="26"
+                },
+                new BstTaskData() {
+                    TaskId = 28,
+                    Name = "Prototype testing",
+                    StartDate = new DateTime(2021, 05, 17),
+                    FinishDate = new DateTime(2021, 05, 22),
+                    Duration = "4",
+                    Progress = 30,
+                    PredecessorsString="27"
+                }, 
+                new BstTaskData() {
+                    TaskId = 29,
+                    Name = "Include feedback",
+                    StartDate = new DateTime(2021, 05, 17),
+                    FinishDate = new DateTime(2021, 05, 22),
+                    Duration="4",
+                    PredecessorsString="28ss"
+                },
+                new BstTaskData() {
+                    TaskId = 30,
+                    Name = "Manufacturing",
+                    StartDate = new DateTime(2021, 05, 23),
+                    FinishDate = new DateTime(2021, 05, 29),
+                    Duration = "5",
+                    Progress = 30,
+                    PredecessorsString="28,29"
+                },
+                new BstTaskData() {
+                    TaskId = 31,
+                    Name = "Assembling material to finished goods",
+                    StartDate = new DateTime(2021, 05, 30),
+                    FinishDate = new DateTime(2021, 06, 05),
+                    Duration = "5",
+                    Progress = 40,
+                    PredecessorsString="30"
+                },
+                new BstTaskData() {
+                    TaskId = 32,
+                    Name = "Final product development",
+                    StartDate = new DateTime(2021, 06, 06),
+                    FinishDate = new DateTime(2021, 06, 13),
+                    Duration = "6",
+                    Progress = 30,
+                    Expanded = true
+                }, new BstTaskData() {
+                    TaskId =33,
+                    Name = "Important improvement",
+                    StartDate = new DateTime(2021, 06, 06),
+                    FinishDate = new DateTime(2021, 06, 10),
+                    Duration="3",
+                    ParentTaskId=32,
+                },
+                new BstTaskData() {
+                    TaskId = 34,
+                    Name = "Customer testing and feedback",
+                    StartDate = new DateTime(2021, 06, 11),
+                    FinishDate = new DateTime(2021, 06, 13),
+                    Duration = "3",
+                    Progress = 30,
+                    ParentTaskId=32,
+                },
+                new BstTaskData() {
+                    TaskId = 35,
+                    Name = "Final product development",
+                    StartDate = new DateTime(2021, 06, 14),
+                    FinishDate = new DateTime(2021, 06, 19),
+                    Duration = "4",
+                    Progress = 40,
+                    Expanded = true
+                },
+                new BstTaskData() {
+                    TaskId = 36,
+                    Name = "Important improvement",
+                    StartDate = new DateTime(2021, 06, 14),
+                    FinishDate = new DateTime(2021, 06, 19),
+                    Duration = "4",
+                    Progress = 30,
+                    ParentTaskId = 35,
+                },
+                new BstTaskData() {
+                    TaskId = 37,
+                    Name = "Address any unforeseen issue",
+                    StartDate = new DateTime(2021, 06, 14),
+                    FinishDate = new DateTime(2021, 06, 19),
+                    Duration = "4",
+                    Progress = 30,
+                    ParentTaskId=35
+                },
+                new BstTaskData() {
+                    TaskId = 38,
+                    Name = "Final product",
+                    StartDate = new DateTime(2021, 06, 20),
+                    FinishDate = new DateTime(2021, 07, 01),
+                    Duration = "8",
+                    Progress = 40,
+                    Expanded = true
+                },
+                new BstTaskData() {
+                    TaskId = 39,
+                    Name = "Branding product",
+                    StartDate = new DateTime(2021, 06, 20),
+                    FinishDate = new DateTime(2021, 06, 25),
+                    Duration = "4",
+                    Progress = 30,
+                    ParentTaskId = 38,
+                },
+                new BstTaskData()
+                {
+                    TaskId=40,
+                    Name="Marketing and Presales",
+                    StartDate=new DateTime(2021,06,26),
+                    FinishDate=new DateTime(2021,07,01),
+                    ParentTaskId=38,
+                    Duration="4",
+                }
+            };
+            return Tasks;
+        }
+}
+<style>
+     @@font-face {
+        font-family: 'Gantt control icon';
+        src: url(data:application/x-font-ttf;charset=utf-8;base64,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) format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    i {
+        font-family: 'Gantt control icon' !important;
+        speak: none;
+        vertical-align: sub;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    .app-icon-calendar:before {
+        content: "\e700";
+    }
+
+    .app-icon-time:before {
+        content: "\e702";
+    }
+
+    .app-icon-job_title:before {
+        content: "\e703";
+    }
+
+    .app-icon-progress:before {
+        content: "\e704";
+    }
+    .e-custom-parent {
+        background-color: #e1dfdd;
+        border: 1px solid #c8c6c4;
+        height: 26px;
+        border-radius: 5px;
+        text-overflow: ellipsis;
+    }
+
+    .e-custom-child {
+        background-color: #6ec0ff;
+        border: 1px solid #0078d4;
+        height: 26px;
+        border-radius: 5px;
+    }
+
+    .e-gantt-parent-progressbar {
+        background-color: #d2d0ce;
+    }
+
+    .e-gantt-child-progressbar {
+        background-color: #0078d4;
+    }
+
+    .e-milestone-top {
+        border-bottom-color: #d2d0ce !important;
+        border-bottom: 1px solid #c8c6c4;
+        border-right-width: 9px;
+        border-left-width: 9px;
+        border-bottom-width: 9px;
+    }
+
+    .e-milestone-bottom {
+        border-top-color: #d2d0ce !important;
+        border-top: 1px solid #c8c6c4;
+        top: 15px;
+        border-right-width: 9px;
+        border-left-width: 9px;
+        border-top-width: 9px;
+    }
+
+    .e-gantt-parent-progressbar,
+    .e-gantt-child-progressbar {
+        border-style: solid;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+        height: 100%;
+        border: 0px;
+        border-radius: 2px 0px 0px 2px;
+    }
+
+    .e-task-label {
+        position: absolute;
+        top: 5px;
+        font-size: 12px;
+        text-overflow: ellipsis;
+    }
+    @@font-face {
+        font-family: 'Gantt control icon';
+        src: url(data:application/x-font-ttf;charset=utf-8;base64,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) format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    i {
+        font-family: 'Gantt control icon' !important;
+        speak: none;
+        vertical-align: sub;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    .app-icon-calendar:before {
+        content: "\e700";
+    }
+
+    .app-icon-time:before {
+        content: "\e702";
+    }
+
+    .app-icon-job_title:before {
+        content: "\e703";
+    }
+
+    .app-icon-progress:before {
+        content: "\e704";
+    }
+</style>
