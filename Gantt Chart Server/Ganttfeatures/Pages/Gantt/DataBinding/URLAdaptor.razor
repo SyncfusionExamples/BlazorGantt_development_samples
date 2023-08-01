@@ -1,0 +1,14 @@
+﻿@page "/URLAdaptor"
+@using Syncfusion.Blazor
+@using Syncfusion.Blazor.Gantt
+@using Syncfusion.Blazor.Data
+@using Ganttfeatures.Models
+
+ <SfGantt TValue="GanttData.TaskData" Width="1000px" Height="450px">
+     <SfDataManager Url="/api/URLAdaptor" InsertUrl="/api/GanttURL/Insert" RemoveUrl="/api/GanttURL/Delete" UpdateUrl="/api/GanttURL/Update" Adaptor="Adaptors.UrlAdaptor"></SfDataManager>
+    <GanttTaskFields ParentID="ParentId" Id="TaskId" Name="TaskName" StartDate="StartDate"  Duration="Duration"  Dependency="Predecessor">
+    </GanttTaskFields>
+</SfGantt>
+@code {
+    
+}
