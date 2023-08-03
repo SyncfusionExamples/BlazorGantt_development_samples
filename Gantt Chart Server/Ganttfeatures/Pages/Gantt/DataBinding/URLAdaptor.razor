@@ -9,7 +9,7 @@
     <SfDataManager Url="/api/URLAdaptor" BatchUrl="/api/URLAdaptor/BatchUpdate" Adaptor="Adaptors.UrlAdaptor">
     </SfDataManager>
     <GanttTaskFields Id="ID" Name="TaskName" StartDate="StartDate" EndDate="EndDate" Duration="Duration"
-        Progress="Progress" Dependency="Predecessor" ParentID="ParentId">
+        Progress="Progress" Dependency="Predecessor" ParentID="ParentId" Notes="Notes">
     </GanttTaskFields>
     <GanttEditSettings AllowTaskbarEditing="true" AllowEditing="true" AllowAdding="true" AllowDeleting="true">
     </GanttEditSettings>
@@ -21,6 +21,7 @@
         <GanttColumn Field="Duration" HeaderText="Duration"></GanttColumn>
         <GanttColumn Field="Progress" HeaderText="Progress"></GanttColumn>
         <GanttColumn Field="Predecessor" HeaderText="Predecessor"></GanttColumn>
+        <GanttColumn Field="Notes" HeaderText="Notes"></GanttColumn>
         <GanttColumn Field="Assignee" HeaderText="Assignee"></GanttColumn>
         <GanttColumn Field="StoryPoint" HeaderText="StoryPoint"></GanttColumn>
     </GanttColumns>

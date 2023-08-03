@@ -21,41 +21,43 @@ namespace Ganttfeatures.Models
         [JsonPropertyName("Duration")]
         public string Duration { get; set; }
         [JsonPropertyName("Assignee")]
-        public string Assignee { get; set; }
+        public string? Assignee { get; set; }
         [JsonPropertyName("Reporter")]
-        public string Reporter { get; set; }
+        public string? Reporter { get; set; }
         [JsonPropertyName("Progress")]
         public int Progress { get; set; }
         [JsonPropertyName("ParentId")]
         public int? ParentId { get; set; }
         [JsonPropertyName("Status")]
-        public string Status { get; set; }
+        public string? Status { get; set; }
         [JsonPropertyName("Work")]
         public double? Work { get; set; }
         [JsonPropertyName("WorkersCount")]
-        public int WorkersCount { get; set; }
+        public int? WorkersCount { get; set; }
         [JsonPropertyName("TaskType")]
-        public string TaskType { get; set; }
+        public string? TaskType { get; set; }
         [JsonPropertyName("ApprovedBy")]
-        public string ApprovedBy { get; set; }
+        public string? ApprovedBy { get; set; }
         [JsonPropertyName("Shift")]
-        public string Shift { get; set; }
+        public string? Shift { get; set; }
         [JsonPropertyName("PlatForm")]
-        public string PlatForm { get; set; }
+        public string? PlatForm { get; set; }
         [JsonPropertyName("StoryPoint")]
-        public int StoryPoint { get; set; }
+        public int? StoryPoint { get; set; }
         [JsonPropertyName("Priority")]
-        public string Priority { get; set; }
+        public string? Priority { get; set; }
         [JsonPropertyName("FixVerison")]
-        public string FixVerison { get; set; }
+        public string? FixVerison { get; set; }
         [JsonPropertyName("ActualStartDate")]
-        public DateTime ActualStartDate { get; set; }
+        public DateTime? ActualStartDate { get; set; }
         [JsonPropertyName("ActualEndDate")]
-        public DateTime ActualEndDate { get; set; }
+        public DateTime? ActualEndDate { get; set; }
         [JsonPropertyName("Predecessor")]
         public string Predecessor { get; set; }
         [JsonPropertyName("isParent")]
         public bool? isParent { get; set; }
+        [JsonPropertyName("Notes")]
+        public string? Notes { get; set; }
         public static List<TaskData> GetTree()
         {
             if (ganttData.Count == 0)

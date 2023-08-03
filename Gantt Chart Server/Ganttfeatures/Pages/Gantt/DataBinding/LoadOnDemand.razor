@@ -30,7 +30,7 @@
     private bool enableVirtualization = true;
     protected override void OnInitialized()
     {
-        GanttQuery = new Query().AddParams("RecordCount", "3").AddParams("StartDate", new DateTime(2022, 10,
+        GanttQuery = new Query().AddParams("RecordCount", "100").AddParams("StartDate", new DateTime(2022, 10,
         03).ToString()).AddParams("loadchildondemand", loadchildondemand).AddParams("EndDate", new DateTime(2022, 10,
         05).ToString());
     }

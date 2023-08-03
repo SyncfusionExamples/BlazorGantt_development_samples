@@ -23,18 +23,14 @@ namespace Ganttfeatures.Controller
             return new { Items = dataList, Count = count };
         }
 
-        // GET api/<WebApiController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         // POST api/<WebApiController>
         [HttpPost]
-        public void Post(TaskData data)
+        public void Post(List<TaskData> records)
         {
-            //TaskData.ganttData.Insert(0, data);
+            for (var i = 0; i < records.Count(); i++)
+            {
+                TaskData.ganttData.Insert(0, records[i]);
+            }
         }
 
         // PUT api/<WebApiController>/5
