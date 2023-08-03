@@ -14,25 +14,10 @@ namespace Ganttfeatures.Controller
         public static IDictionary<string, object> queryParams = null;
         IEnumerable DataSource = null;
 
-        // GET: api/<LoadOnDemandController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<LoadOnDemandController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         // POST api/<LoadOnDemandController>
         [HttpPost]
         public object Post([FromBody] DataManagerRequest dm)
         {
-
             queryParams = dm.Params;
             if (TaskData.ganttData.Count == 0)
             {

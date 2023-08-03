@@ -82,23 +82,14 @@ namespace Ganttfeatures.Controller
         }
         public class CRUDModel<T> where T : class
         {
-
             public object Key { get; set; }
-
             public string KeyColumn { get; set; }
-
             public string Action { get; set; }
-
             public IDictionary<string, object> Params { get; set; }
-
             public string Table { get; set; }
-
             public T Value { get; set; }
-
             public List<T> Added { get; set; }
-
             public List<T> Changed { get; set; }
-
             public List<T> Deleted { get; set; }
 
         }
