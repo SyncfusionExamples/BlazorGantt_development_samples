@@ -11,7 +11,7 @@ namespace Ganttfeatures.Pages.Gantt.DataBinding
     {
         public static IEnumerable FetchChildRecords(IEnumerable DataSource, IQueryCollection queryString)
         {
-            var GroupData = TaskData.tree.ToList().GroupBy(rec => rec.ParentId)
+            var GroupData = TaskData.ganttData.ToList().GroupBy(rec => rec.ParentId)
                                 .Where(g => g.Key != null).ToDictionary(g => g.Key?.ToString(), g => g.ToList());
             foreach (TaskData Record in DataSource)
             {
@@ -74,7 +74,7 @@ namespace Ganttfeatures.Pages.Gantt.DataBinding
         }
         public static List<TaskData> FetchRecordsToUpdate(TaskData dataAfterUpdate)
         {
-            IQueryable<TaskData> dataSource = TaskData.tree.AsQueryable();
+            IQueryable<TaskData> dataSource = TaskData.ganttData.AsQueryable();
             return GanttDataOperations.UpdateDependentRecords<TaskData>(GanttRef, dataSource, dataAfterUpdate);
         }
     }

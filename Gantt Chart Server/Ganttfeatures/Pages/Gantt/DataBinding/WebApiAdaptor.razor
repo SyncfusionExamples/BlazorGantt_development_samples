@@ -1,4 +1,4 @@
-﻿@page "/URLAdaptor"
+﻿@page "/WebAPIAdaptor"
 @using Syncfusion.Blazor
 @using Syncfusion.Blazor.Gantt
 @using Syncfusion.Blazor.Data
@@ -6,10 +6,9 @@
 
 <SfGantt TValue="TaskData" Width="100%" Height="450px"
     Toolbar="@(new List<string>(){ "Add", "Edit", "Update", "Cancel", "Delete", "Indent","Outdent", "ExpandAll", "CollapseAll", "PrevTimeSpan", "NextTimeSpan"})">
-    <SfDataManager Url="/api/URLAdaptor" BatchUrl="/api/URLAdaptor/BatchUpdate" Adaptor="Adaptors.UrlAdaptor">
-    </SfDataManager>
+    <SfDataManager Url="/api/WebApi" Adaptor="Adaptors.WebApiAdaptor"></SfDataManager>
     <GanttTaskFields Id="ID" Name="TaskName" StartDate="StartDate" EndDate="EndDate" Duration="Duration"
-        Progress="Progress" Dependency="Predecessor" ParentID="ParentId">
+        Dependency="Predecessor" ParentID="ParentId" Progress="Progress">
     </GanttTaskFields>
     <GanttEditSettings AllowTaskbarEditing="true" AllowEditing="true" AllowAdding="true" AllowDeleting="true">
     </GanttEditSettings>

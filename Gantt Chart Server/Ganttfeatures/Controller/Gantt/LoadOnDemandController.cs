@@ -34,11 +34,11 @@ namespace Ganttfeatures.Controller
         {
 
             queryParams = dm.Params;
-            if (TaskData.tree.Count == 0)
+            if (TaskData.ganttData.Count == 0)
             {
                 TaskData.GetTree();
             }
-            DataSource = TaskData.tree.ToList();
+            DataSource = TaskData.ganttData.ToList();
             if (dm.Search != null && dm.Search.Count > 0)
             {
                 DataSource = DataOperations.PerformSearching(DataSource, dm.Search);  //Search

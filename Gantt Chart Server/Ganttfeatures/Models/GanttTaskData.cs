@@ -8,86 +8,63 @@ namespace Ganttfeatures.Models
 {
     public class TaskData
     {
-        public static List<TaskData> tree = new List<TaskData>();
-
+        public static List<TaskData> ganttData = new List<TaskData>();
+        
         [JsonPropertyName("ID")]
         public int ID { get; set; }
-
         [JsonPropertyName("TaskName")]
         public string TaskName { get; set; }
-
         [JsonPropertyName("StartDate")]
         public DateTime StartDate { get; set; }
-
         [JsonPropertyName("EndDate")]
         public DateTime EndDate { get; set; }
-
         [JsonPropertyName("Duration")]
         public string Duration { get; set; }
-
         [JsonPropertyName("Assignee")]
         public string Assignee { get; set; }
-
         [JsonPropertyName("Reporter")]
         public string Reporter { get; set; }
-
         [JsonPropertyName("Progress")]
         public int Progress { get; set; }
-
         [JsonPropertyName("ParentId")]
         public int? ParentId { get; set; }
-
         [JsonPropertyName("Status")]
         public string Status { get; set; }
-
         [JsonPropertyName("Work")]
         public double? Work { get; set; }
-
         [JsonPropertyName("WorkersCount")]
         public int WorkersCount { get; set; }
-
         [JsonPropertyName("TaskType")]
         public string TaskType { get; set; }
-
         [JsonPropertyName("ApprovedBy")]
         public string ApprovedBy { get; set; }
-
         [JsonPropertyName("Shift")]
         public string Shift { get; set; }
-
         [JsonPropertyName("PlatForm")]
         public string PlatForm { get; set; }
-
         [JsonPropertyName("StoryPoint")]
         public int StoryPoint { get; set; }
-
         [JsonPropertyName("Priority")]
         public string Priority { get; set; }
-
         [JsonPropertyName("FixVerison")]
         public string FixVerison { get; set; }
-
         [JsonPropertyName("ActualStartDate")]
         public DateTime ActualStartDate { get; set; }
-
         [JsonPropertyName("ActualEndDate")]
         public DateTime ActualEndDate { get; set; }
-
         [JsonPropertyName("Predecessor")]
         public string Predecessor { get; set; }
-
         [JsonPropertyName("isParent")]
         public bool? isParent { get; set; }
-        public TaskData() { }
         public static List<TaskData> GetTree()
         {
-            if (tree.Count == 0)
+            if (ganttData.Count == 0)
             {
                 Random rand = new Random();
                 var x = 0;
                 int duration = 0;
                 int recordCount = queryParams != null && queryParams.ContainsKey("RecordCount") ?
-                    Convert.ToInt32(queryParams["RecordCount"].ToString()) : 100;
+                    Convert.ToInt32(queryParams["RecordCount"].ToString()) : 10;
                 DateTime startDate = queryParams != null && queryParams.ContainsKey("StartDate") ?
                     Convert.ToDateTime(queryParams["StartDate"].ToString()) : new DateTime(2000, 1, 5);
                 DateTime endDate = queryParams != null && queryParams.ContainsKey("EndDate") ?
@@ -133,12 +110,12 @@ namespace Ganttfeatures.Models
                         isParent = true,
                         ParentId = null
                     };
-                    tree.Add(Parent);
+                    ganttData.Add(Parent);
                     for (var j = 1; j <= 4; j++)
                     {
                         childStartDate = childStartDate.AddDays(j == 1 ? 0 : duration + 2);
                         duration = 5;
-                        tree.Add(new TaskData()
+                        ganttData.Add(new TaskData()
                         {
                             ID = ++x,
                             TaskName = "Task " + x,
@@ -167,7 +144,7 @@ namespace Ganttfeatures.Models
                     }
                 }
             }
-            return tree;
+            return ganttData;
         }
     }
 }

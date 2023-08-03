@@ -5,8 +5,10 @@
 @using Syncfusion.Blazor.Buttons;
 @using Ganttfeatures.Models
 
-<SfGantt @ref="GanttRef" TValue="TaskData" Query="@GanttQuery" Height="450px" Width="1000px" Toolbar="@(new List<string>(){ "Add", "Edit", "Delete", "Update", "Cancel", "Indent","Outdent", "ExpandAll", "CollapseAll", "PrevTimeSpan", "NextTimeSpan"})"
-    ProjectStartDate="@ProjectStartDate" EnableVirtualization="@enableVirtualization" ProjectEndDate="@ProjectEndDate" ScrollToTaskbarOnClick="true" LoadChildOnDemand="@loadchildondemand">
+<SfGantt @ref="GanttRef" TValue="TaskData" Query="@GanttQuery" Height="450px" Width="100%"
+    Toolbar="@(new List<string>(){ "Add", "Edit", "Delete", "Update", "Cancel", "Indent","Outdent", "ExpandAll", "CollapseAll", "PrevTimeSpan", "NextTimeSpan"})"
+    ProjectStartDate="@ProjectStartDate" EnableVirtualization="@enableVirtualization" ProjectEndDate="@ProjectEndDate"
+    ScrollToTaskbarOnClick="true" LoadChildOnDemand="@loadchildondemand">
     <SfDataManager Url="/api/LoadOnDemand" Adaptor="Adaptors.UrlAdaptor"></SfDataManager>
     <GanttTaskFields Id="ID" Name="TaskName" StartDate="StartDate" EndDate="EndDate" Duration="Duration"
         Dependency="Predecessor" ParentID="ParentId" HasChildMapping="isParent">
@@ -14,8 +16,9 @@
     <GanttEditSettings AllowTaskbarEditing="true" AllowEditing="true" AllowAdding="true" AllowDeleting="true">
     </GanttEditSettings>
 </SfGantt>
-<SfCheckBox @bind-Checked="@loadchildondemand"  @onchange="onChange" Label="Load with Child"></SfCheckBox> 
-<SfCheckBox @bind-Checked="@enableVirtualization"  @onchange="changeVirtualMode" Label="Enable Virtualization"></SfCheckBox> 
+<SfCheckBox @bind-Checked="@loadchildondemand" @onchange="onChange" Label="Load with Child"></SfCheckBox>
+<SfCheckBox @bind-Checked="@enableVirtualization" @onchange="changeVirtualMode" Label="Enable Virtualization">
+</SfCheckBox>
 
 
 @code {
@@ -27,7 +30,9 @@
     private bool enableVirtualization = true;
     protected override void OnInitialized()
     {
-        GanttQuery = new Query().AddParams("RecordCount", "3").AddParams("StartDate", new DateTime(2022, 10, 03).ToString()).AddParams("loadchildondemand", loadchildondemand).AddParams("EndDate", new DateTime(2022, 10, 05).ToString());
+        GanttQuery = new Query().AddParams("RecordCount", "3").AddParams("StartDate", new DateTime(2022, 10,
+        03).ToString()).AddParams("loadchildondemand", loadchildondemand).AddParams("EndDate", new DateTime(2022, 10,
+        05).ToString());
     }
     public void changeVirtualMode(ChangeEventArgs args)
     {
@@ -35,6 +40,8 @@
     }
     public void onChange(ChangeEventArgs args)
     {
-        GanttQuery = new Query().AddParams("loadchildondemand", (bool)args.Value).AddParams("RecordCount", "100").AddParams("StartDate", new DateTime(2022, 10, 03).ToString()).AddParams("EndDate", new DateTime(2022, 10, 05).ToString());
+        GanttQuery = new Query().AddParams("loadchildondemand", (bool)args.Value).AddParams("RecordCount",
+        "100").AddParams("StartDate", new DateTime(2022, 10, 03).ToString()).AddParams("EndDate", new DateTime(2022, 10,
+        05).ToString());
     }
 }
