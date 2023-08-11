@@ -24,6 +24,11 @@
             new TaskData() { ID = 9, Name = "ResourceView", Url="ResourceView", PID = 8 },
             new TaskData() { ID = 10, Name = "Columns"  },
             new TaskData() { ID = 11, Name = "DateOnlyTimeOnly", Url="DateOnlyTimeOnly", PID = 10 },
+            new TaskData() { ID = 12, Name = "Remote data binding", PID = 1 },
+            new TaskData() { ID = 13, Name = "Load child on demand", PID=12, Url="LoadChildOnDemand" },
+            new TaskData() { ID = 14, Name = "Custom Adaptor", PID=12, Url="CustomAdaptor" },
+            new TaskData() { ID = 15, Name = "URL Adaptor", PID=12, Url="URLAdaptor" },
+            new TaskData() { ID = 16, Name = "WebAPI Adaptor", PID=12, Url="WebAPIAdaptor" },
         };
             return Tasks;
         }

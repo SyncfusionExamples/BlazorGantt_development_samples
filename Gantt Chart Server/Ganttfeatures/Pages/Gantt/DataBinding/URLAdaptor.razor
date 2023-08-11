@@ -1,0 +1,31 @@
+﻿@page "/URLAdaptor"
+@using Syncfusion.Blazor
+@using Syncfusion.Blazor.Gantt
+@using Syncfusion.Blazor.Data
+@using Ganttfeatures.Models
+
+<SfGantt TValue="TaskData" Width="100%" Height="450px"
+    Toolbar="@(new List<string>(){ "Add", "Edit", "Update", "Cancel", "Delete", "Indent","Outdent", "ExpandAll", "CollapseAll", "PrevTimeSpan", "NextTimeSpan"})">
+    <SfDataManager Url="/api/URLAdaptor" BatchUrl="/api/URLAdaptor/BatchUpdate" Adaptor="Adaptors.UrlAdaptor">
+    </SfDataManager>
+    <GanttTaskFields Id="ID" Name="TaskName" StartDate="StartDate" EndDate="EndDate" Duration="Duration"
+        Progress="Progress" Dependency="Predecessor" ParentID="ParentId" Notes="Notes">
+    </GanttTaskFields>
+    <GanttEditSettings AllowTaskbarEditing="true" AllowEditing="true" AllowAdding="true" AllowDeleting="true">
+    </GanttEditSettings>
+    <GanttColumns>
+        <GanttColumn Field="ID" HeaderText="Task ID"></GanttColumn>
+        <GanttColumn Field="TaskName" HeaderText="Task Name"></GanttColumn>
+        <GanttColumn Field="StartDate" HeaderText="StartDate"></GanttColumn>
+        <GanttColumn Field="EndDate" HeaderText="End Date"></GanttColumn>
+        <GanttColumn Field="Duration" HeaderText="Duration"></GanttColumn>
+        <GanttColumn Field="Progress" HeaderText="Progress"></GanttColumn>
+        <GanttColumn Field="Predecessor" HeaderText="Predecessor"></GanttColumn>
+        <GanttColumn Field="Notes" HeaderText="Notes"></GanttColumn>
+        <GanttColumn Field="Assignee" HeaderText="Assignee"></GanttColumn>
+        <GanttColumn Field="StoryPoint" HeaderText="StoryPoint"></GanttColumn>
+    </GanttColumns>
+</SfGantt>
+@code {
+
+}
