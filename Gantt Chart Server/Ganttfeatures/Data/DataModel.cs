@@ -14,12 +14,12 @@
         {
             List<TaskData> Tasks = new List<TaskData>() {
             new TaskData() { ID = 1, Name = "Data Binding"  },
-            new TaskData() { ID = 2, Name = "Self-Referential", Url="Self-Referential", PID = 1 },
-            new TaskData() { ID = 3, Name = "Self-Referential default", PID = 2 },
-            new TaskData() { ID = 4, Name = "ExpandoObject Binding", PID = 2 },
-            new TaskData() { ID = 5,  Name = "DynamicObject binding", PID = 2 },
+            new TaskData() { ID = 2, Name = "Self-Referential", PID = 1 },
+            new TaskData() { ID = 3, Name = "Self-Referential default", PID = 2, Url="Self-Referential" },
+            new TaskData() { ID = 4, Name = "ExpandoObject Binding", PID = 2, Url="ExpandoObject_Binding" },
+            new TaskData() { ID = 5,  Name = "DynamicObject binding", PID = 2, Url="DynamicObject_binding" },
             new TaskData() { ID = 6, Name = "Hierarchical data Binding",PID=1 },
-            new TaskData() { ID = 7,  Name = "Hierarchical data Binding default", PID = 6 },
+            new TaskData() { ID = 7,  Name = "Hierarchical data Binding default", PID = 6, Url="Hierarchical_data_Binding" },
             new TaskData() { ID = 8, Name = "ResourceView"  },
             new TaskData() { ID = 9, Name = "ResourceView", Url="ResourceView", PID = 8 },
             new TaskData() { ID = 10, Name = "Columns"  },
@@ -29,6 +29,9 @@
             new TaskData() { ID = 14, Name = "Custom Adaptor", PID=12, Url="CustomAdaptor" },
             new TaskData() { ID = 15, Name = "URL Adaptor", PID=12, Url="URLAdaptor" },
             new TaskData() { ID = 16, Name = "WebAPI Adaptor", PID=12, Url="WebAPIAdaptor" },
+            new TaskData() { ID = 17, Name = "Miscellaneous" },
+            new TaskData() { ID = 18, Name = "Persist state", PID=17, Url="Persistence" },
+            new TaskData() { ID = 19, Name = "Read-Only", PID=17, Url="Read-Only" },
         };
             return Tasks;
         }
