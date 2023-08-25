@@ -32,6 +32,10 @@
             new TaskData() { ID = 17, Name = "Miscellaneous" },
             new TaskData() { ID = 18, Name = "Persist state", PID=17, Url="Persistence" },
             new TaskData() { ID = 19, Name = "Read-Only", PID=17, Url="Read-Only" },
+            new TaskData() { ID = 20, Name = "Templates" },
+            new TaskData() { ID = 21, Name = "Column-Tooltip-Taskbar", PID=20, Url="Template" },
+            new TaskData() { ID = 22, Name = "Scheduling" },
+            new TaskData() { ID = 23, Name = "Unscheduled", PID=22, Url="Unscheduled" },
         };
             return Tasks;
         }
@@ -39,7 +43,7 @@
         public static List<TaskData> GetTreeGridData()
         {
             List<TaskData> Tasks1 = new List<TaskData>() {
-            new TaskData() { ID = 1,Name = "Selection" },
+            new TaskData() { ID = 1,Name = "Selection", PID = 14 },
             new TaskData() { ID = 2,Name = "TreeGrid Selection", PID = 1 },
             new TaskData() { ID = 3,Name = "TreeGridSelectionDefault", PID = 2 },
             new TaskData() { ID = 4,Name = "cellselection", PID = 2 },
@@ -50,8 +54,12 @@
             new TaskData() { ID = 9,Name = "GridCellSelection", PID = 7 },
             new TaskData() { ID = 10,Name = "GridCheckboxSelection", PID = 7 },
             new TaskData() { ID = 11,Name = "GridToggleselection", PID = 7},
-            new TaskData() { ID = 12, Name = "Frozen"},
-            new TaskData() { ID = 13, Name = "FrozenTemplateColumns", Url="TreeGrid/Frozen/ColumnTemplate", PID = 12}
+            new TaskData() { ID = 12, Name = "Frozen", PID = 14},
+            new TaskData() { ID = 13, Name = "FrozenTemplateColumns", Url="TreeGrid/Frozen/ColumnTemplate", PID = 12},
+            new TaskData() { ID = 14, Name = "TreeGrid" },
+            new TaskData() { ID = 15, Name = "Grid" },
+            new TaskData() { ID = 16, Name = "DropDown" },
+            new TaskData() { ID = 17, Name = "MultiSelect", Url="DropDown/MultiSelect-Dropdown", PID = 16 },
         };
             return Tasks1;
         }
