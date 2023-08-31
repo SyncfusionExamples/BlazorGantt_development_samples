@@ -1,0 +1,383 @@
+﻿@page "/Template"
+
+@using Syncfusion.Blazor.Gantt
+@inject Microsoft.AspNetCore.Components.NavigationManager UriHelper
+
+<SfGantt DataSource="@TaskCollection" Height="450px" Width="100%" RowHeight=60 RenderBaseline="true"
+    GridLines="GridLine.Both" AllowSelection="true" AllowSorting="true" AllowFiltering="true" AllowResizing="true"
+    AllowReordering="true" EnableContextMenu="true" AllowRowDragAndDrop="true"
+    Toolbar="@(new List<string>(){ "Add", "Edit", "Delete", "Update", "Cancel", "Indent","Outdent", "ExpandAll", "CollapseAll", "PrevTimeSpan", "NextTimeSpan"})"
+    HighlightWeekends="true" ScrollToTaskbarOnClick="true">
+    <GanttTaskFields Id="TaskId" Name="TaskName" StartDate="StartDate" EndDate="EndDate" Duration="Duration"
+        Progress="Progress" ParentID="ParentId" Dependency="Predecessor" BaselineStartDate="BaselineStartDate"
+        BaselineEndDate="BaselineEndDate">
+    </GanttTaskFields>
+    <GanttEditSettings AllowAdding="true" AllowDeleting="true" AllowEditing="true" AllowTaskbarEditing="true"
+        ShowDeleteConfirmDialog="true">
+    </GanttEditSettings>
+    <GanttEditSettings AllowAdding="true" AllowDeleting="true" AllowEditing="true" AllowTaskbarEditing="true"
+        ShowDeleteConfirmDialog="true"></GanttEditSettings>
+    <GanttTemplates TValue="TaskData">
+        <ParentTaskbarTemplate>
+            <div class="e-gantt-parent-taskbar e-custom-parent">
+                <div class="e-gantt-parent-progressbar" style="width:@((context as TaskData).Progress)%">
+                    <span class="e-task-label">@((context as TaskData).Progress)</span>
+                </div>
+            </div>
+        </ParentTaskbarTemplate>
+        <TaskbarTemplate>
+            <div class="e-gantt-child-taskbar e-custom-child" style="">
+                <div class="e-gantt-child-progressbar" style="width:@((context as TaskData).Progress)%">
+                </div>
+                <span class="e-task-label">@((context as TaskData).Progress)</span>
+            </div>
+        </TaskbarTemplate>
+        <MilestoneTemplate>
+            <div style="margin-top:-3px;">
+                <div class="e-gantt-milestone" style="position:absolute;">
+                    <div class="e-milestone-top">
+                    </div>
+                    <div class="e-milestone-bottom">
+                    </div>
+                </div>
+            </div>
+        </MilestoneTemplate>
+    </GanttTemplates>
+    <GanttColumns>
+        <GanttColumn Field="TaskId" HeaderText="ID"></GanttColumn>
+        <GanttColumn Field="ResourceName" HeaderText="Resources" Width="220">
+            <HeaderTemplate>
+                <div>
+                    <i class="app-icon-resource"></i>
+                    Resources
+                </div>
+            </HeaderTemplate>
+            <Template>
+                @{
+                    if ((context as TaskData).ResourceName != null)
+                    {
+                        var template = (context as TaskData);
+                        <div class="image">
+                            <img role="presentation"
+                                src="@UriHelper.ToAbsoluteUri($"https://blazor.syncfusion.com/demos/_content/blazor_server_common_net7/images/gantt/{template. ResourceName.Trim().Replace(" ","").ToLower()}.png")" />
+                            <div style="display:inline-block;width:100%;position:relative;left:30px">
+                                @(template.ResourceName)</div>
+                        </div>
+                    }
+                }
+            </Template>
+        </GanttColumn>
+        <GanttColumn Field="TaskName" HeaderText="Task Name"
+            ClipMode="Syncfusion.Blazor.Grids.ClipMode.EllipsisWithTooltip">
+            <HeaderTemplate>
+                <div>
+                    <i class="app-icon-job_title"> </i>
+                    Job Name
+                </div>
+            </HeaderTemplate>
+        </GanttColumn>
+        <GanttColumn Field="StartDate" HeaderText="Start Date" Width="140">
+            <HeaderTemplate>
+                <div>
+                    <i class="app-icon-calendar"></i>
+                    Start Date
+                </div>
+            </HeaderTemplate>
+        </GanttColumn>
+        <GanttColumn Field="EndDate" HeaderText="End Date" Width="140">
+            <HeaderTemplate>
+                <div>
+                    <i class="app-icon-calendar"></i>
+                    EndDate
+                </div>
+            </HeaderTemplate>
+        </GanttColumn>
+        <GanttColumn Field="Duration" HeaderText="Duration" Width="140">
+            <HeaderTemplate>
+                <div>
+                    <i class="app-icon-time"></i>
+                    Duration
+                </div>
+            </HeaderTemplate>
+        </GanttColumn>
+        <GanttColumn Field="Progress" HeaderText="Progress" Width="140">
+            <HeaderTemplate>
+                <div>
+                    <i class="app-icon-progress"></i>
+                    Progress
+                </div>
+            </HeaderTemplate>
+        </GanttColumn>
+        <GanttColumn Field="BaselineStartDate" HeaderText="Start Date" Width="170">
+            <HeaderTemplate>
+                <div>
+                    <i class="app-icon-calendar"></i>
+                    Baseline StartDate
+                </div>
+            </HeaderTemplate>
+        </GanttColumn>
+        <GanttColumn Field="BaselineEndDate" HeaderText="End Date" Width="170">
+            <HeaderTemplate>
+                <div>
+                    <i class="app-icon-calendar"></i>
+                    Baseline EndDate
+                </div>
+            </HeaderTemplate>
+        </GanttColumn>
+    </GanttColumns>
+    <GanttTooltipSettings ShowTooltip="true" TValue="TaskData">
+        <TaskbarTemplate>
+            <table>
+                @{
+                    if ((context as TaskData).ResourceName != null)
+                    {
+                        var template = (context as TaskData);
+                        <tr>
+                            <td rowspan="3" style="padding:3px">
+                                <img
+                                    src="@UriHelper.ToAbsoluteUri($"https://blazor.syncfusion.com/demos/_content/blazor_server_common_net7/images/gantt/{template. ResourceName.Trim().Replace(" ","").ToLower()}.png")" />
+                            </td>
+                            <td style="padding:3px">Task Done By:</td>
+                            <td style="padding:3px">@(template.ResourceName)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:3px">Starts On:</td>
+                            <td style="padding:3px">@(template.StartDate.ToString("MM/dd/yyyy"))</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:3px">Ends On:</td>
+                            <td style="padding:3px">@(template.EndDate.ToString("MM/dd/yyyy"))</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td style="padding:3px">Starts On:</td>
+                            <td style="padding:3px">@((context as TaskData).StartDate.ToString("MM/dd/yyyy"))</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:3px">Ends On:</td>
+                            <td style="padding:3px">@((context as TaskData).EndDate.ToString("MM/dd/yyyy"))</td>
+                        </tr>
+                    }
+                }
+            </table>
+        </TaskbarTemplate>
+        <EditingTemplate>
+            <table>
+                @{
+                    var template = (context as TaskData);
+                    if (TaskbarEditAction == "LeftResizing")
+                    {
+                        <tr>
+                            <td style="padding:3px">@(template.StartDate.ToString("MMM dd, yyyy"))</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:6px">@(template.Duration) days</td>
+                        </tr>
+                    }
+                    else if (TaskbarEditAction == "RightResizing")
+                    {
+                        <tr>
+                            <td style="padding:3px">@(template.EndDate.ToString("MMM dd, yyyy"))</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:6px">@(template.Duration) days</td>
+                        </tr>
+                    }
+                    else if (TaskbarEditAction == "ChildDrag" || TaskbarEditAction == "ParentDrag")
+                    {
+                        <tr>
+                            <td style="padding:3px">@(template.StartDate.ToString("MMM dd, yyyy"))</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:3px">@(template.EndDate.ToString("MMM dd, yyyy"))</td>
+                        </tr>
+                    }
+                    else if (TaskbarEditAction == "ProgressResizing")
+                    {
+                        <tr>
+                            <td style="padding:3px">@(template.Progress) %</td>
+                        </tr>
+                    }
+                }
+            </table>
+        </EditingTemplate>
+        <ManualTaskbarTemplate>
+            <table>
+                @{
+                    var template = (context as TaskData);
+                    <tr>
+                        <td style="padding:3px">@(template.StartDate.ToString("MMM dd, yyyy"))</td>
+                    </tr>
+                }
+            </table>
+        </ManualTaskbarTemplate>
+    </GanttTooltipSettings>
+    <GanttLabelSettings LeftLabel="TaskName" TValue="TaskData"></GanttLabelSettings>
+    <GanttSplitterSettings ColumnIndex="2"></GanttSplitterSettings>
+    <GanttEvents TValue="TaskData" TaskbarEditing="TaskbarEditing">
+    </GanttEvents>
+    <GanttHolidays>
+        <GanttHoliday From="@Holiday1" To="@Holiday2" Label="Public holiday"></GanttHoliday>
+        <GanttHoliday From="@Holiday3" To="@Holiday4" Label="Public holiday"></GanttHoliday>
+    </GanttHolidays>
+    <GanttEventMarkers>
+        <GanttEventMarker Day="@Event1" Label="Research phase" CssClass="e-custom-event-marker"></GanttEventMarker>
+        <GanttEventMarker Day="@Event2" Label="Design phase" CssClass="e-custom-event-marker"></GanttEventMarker>
+        <GanttEventMarker Day="@Event3" Label="Production phase" CssClass="e-custom-event-marker"></GanttEventMarker>
+        <GanttEventMarker Day="@Event4" Label="Sales and marketing phase" CssClass="e-custom-event-marker">
+        </GanttEventMarker>
+    </GanttEventMarkers>
+</SfGantt>
+
+@code {
+    private DateTime Holiday1 = new DateTime(2021, 04, 05);
+    private DateTime Holiday2 = new DateTime(2021, 04, 05);
+    private DateTime Holiday3 = new DateTime(2021, 04, 01);
+    private DateTime Holiday4 = new DateTime(2021, 04, 01);
+    private DateTime Event1 = new DateTime(2021, 04, 09);
+    private DateTime Event2 = new DateTime(2021, 04, 30);
+    private DateTime Event3 = new DateTime(2021, 05, 22);
+    private DateTime Event4 = new DateTime(2021, 06, 19);
+    private string TaskbarEditAction { get; set; }
+    private List<TaskData> TaskCollection { get; set; }
+    protected override void OnInitialized()
+    {
+        this.TaskCollection = GetTaskCollection().ToList();
+    }
+    private void TaskbarEditing(TaskbarEditingEventArgs<TaskData> args)
+    {
+        TaskbarEditAction = args.Action;
+    }
+    public class TaskData
+        {
+            public int TaskId { get; set; }
+            public string TaskName { get; set; }
+            public string TaskType { get; set; }
+            public DateTime StartDate { get; set; }
+            public DateTime EndDate { get; set; }
+            public string Duration { get; set; }
+            public int Progress { get; set; }
+            public int? ParentId { get; set; }
+            public string ResourceName { get; set; }
+            public string Predecessor { get; set; }
+            public DateTime BaselineStartDate { get; set; }
+            public DateTime BaselineEndDate { get; set; }
+        }
+
+        public static List<TaskData> GetTaskCollection()
+        {
+            List<TaskData> Tasks = new List<TaskData>() {
+                new TaskData() { TaskId = 1, TaskName = "Project initiation", StartDate = new DateTime(2021, 03, 28), EndDate = new DateTime(2021, 07, 28), BaselineStartDate= new DateTime(2021, 03, 29), BaselineEndDate= new DateTime(2021, 04, 01), TaskType ="FixedDuration", Duration="4", },
+                new TaskData() { TaskId = 2, TaskName = "Identify site location", StartDate = new DateTime(2021, 03, 29), BaselineStartDate= new DateTime(2021, 03, 29), BaselineEndDate= new DateTime(2021, 03, 31), Progress = 30, ParentId = 1, Duration="2", ResourceName= "Rose Fuller" },
+                new TaskData() { TaskId = 3, TaskName = "Perform soil test", StartDate = new DateTime(2021, 03, 29), BaselineStartDate= new DateTime(2021, 03, 31), BaselineEndDate= new DateTime(2021, 04, 03), ParentId = 1, Duration="4", TaskType="FixedWork", Predecessor= "2", ResourceName="Margaret Buchanan" },
+                new TaskData() { TaskId = 4, TaskName = "Soil test approval", StartDate = new DateTime(2021, 03, 29), BaselineStartDate = new DateTime(2021, 04, 05), BaselineEndDate = new DateTime(2021, 04, 05), Duration = "0", Progress = 30, ParentId = 1, Predecessor= "3", ResourceName="Fuller King", TaskType="FixedWork" },
+                new TaskData() { TaskId = 5, TaskName = "Project estimation", StartDate = new DateTime(2021, 03, 29), EndDate = new DateTime(2021, 04, 2), BaselineStartDate= new DateTime(2021, 03, 29), BaselineEndDate= new DateTime(2021, 04, 2), TaskType="FixedDuration", Duration="4" },
+                new TaskData() { TaskId = 6, TaskName = "Develop floor plan for estimation", StartDate = new DateTime(2021, 03, 29), BaselineStartDate= new DateTime(2021, 03, 29), BaselineEndDate= new DateTime(2021, 04, 3), Duration = "3", Progress = 30, ParentId = 5, ResourceName="Van Jack", TaskType="FixedWork" },
+                new TaskData() { TaskId = 7, TaskName = "List materials", StartDate = new DateTime(2021, 04, 01), BaselineStartDate= new DateTime(2021, 04, 05), BaselineEndDate= new DateTime(2021, 04, 08), Duration = "3", Progress = 30, ParentId = 5, TaskType="FixedWork", Predecessor= "6", ResourceName="Martin Tamer" },
+                new TaskData() { TaskId = 8, TaskName = "Estimation approval", StartDate = new DateTime(2021, 04, 01), BaselineStartDate= new DateTime(2021, 04, 07), BaselineEndDate= new DateTime(2021, 04, 08), Duration = "2", ParentId = 5, TaskType="FixedWork", ResourceName="Jack Davolio", Predecessor= "7", },
+                new TaskData() { TaskId = 9, TaskName = "Sign contract", StartDate = new DateTime(2021, 03, 31), EndDate = new DateTime(2021, 04, 01), BaselineStartDate= new DateTime(2021, 04, 08), BaselineEndDate= new DateTime(2021, 04, 09), Duration="1", TaskType="FixedWork", ResourceName="Jack Davolio", Predecessor= "8" },
+            };
+            return Tasks;
+        }
+}
+<style>
+    @@font-face {
+        font-family: 'Gantt control icon';
+        src: url(data:application/x-font-ttf;charset=utf-8;base64,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) format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    i {
+        font-family: 'Gantt control icon' !important;
+        speak: none;
+        vertical-align: sub;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .app-icon-calendar:before {
+        content: "\e700";
+    }
+
+    .app-icon-resource:before {
+        content: "\e701";
+    }
+
+    .app-icon-time:before {
+        content: "\e702";
+    }
+
+    .app-icon-job_title:before {
+        content: "\e703";
+    }
+
+    .app-icon-progress:before {
+        content: "\e704";
+    }
+
+    .e-custom-parent {
+        background-color: #ad7a66;
+        border: 1px solid #3f51b5;
+        height: 26px;
+        border-radius: 5px;
+        text-overflow: ellipsis;
+    }
+
+    .e-custom-child {
+        background-color: #6d619b;
+        border: 1px solid #3f51b5;
+        height: 26px;
+        border-radius: 5px;
+    }
+
+    .e-gantt-parent-progressbar {
+        background-color: #744e3e;
+    }
+
+    .e-gantt-child-progressbar {
+        background-color: #423b5e;
+    }
+
+    .e-milestone-top {
+        border-bottom-color: #ff0080 !important;
+        border-bottom: 1px solid #3f51b5;
+        border-right-width: 15px;
+        border-left-width: 15px;
+        border-bottom-width: 15px;
+    }
+
+    .e-milestone-bottom {
+        border-top-color: #ff0080 !important;
+        border-top: 1px solid #3f51b5;
+        top: 15px;
+        border-right-width: 15px;
+        border-left-width: 15px;
+        border-top-width: 15px;
+    }
+
+    .e-gantt-parent-progressbar,
+    .e-gantt-child-progressbar {
+        border-style: solid;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+        height: 100%;
+        border: 0px;
+        border-radius: 2px 0px 0px 2px;
+    }
+
+    .e-task-label {
+        position: absolute;
+        top: 5px;
+        font-size: 12px;
+        text-overflow: ellipsis;
+    }
+</style>

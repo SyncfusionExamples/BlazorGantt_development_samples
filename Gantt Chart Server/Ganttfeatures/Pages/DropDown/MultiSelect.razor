@@ -1,0 +1,47 @@
+@page "/DropDown/MultiSelect-Dropdown"
+
+@using Syncfusion.Blazor.DropDowns
+<SfMultiSelect TValue="string[]" TItem="Countries" AllowFiltering="true" Width="450px" Placeholder="e.g. Australia"
+    Mode="@VisualMode.CheckBox" DataSource="@Country" ShowSelectAll="@ShowSelectAllCheckBox"
+    EnableSelectionOrder="@EnableSelectionOrders" ValueChanged="@ValueChangeHandler"
+    ShowDropDownIcon="@EnableDropDownIcon" Value="@MultiVal" FilterBarPlaceholder="Search countries"
+    PopupHeight="350px">
+    <MultiSelectFieldSettings Text="Name" Value="Code"></MultiSelectFieldSettings>
+</SfMultiSelect>
+@code {
+    public bool ShowSelectAllCheckBox { get; set; } = true;
+    public bool EnableSelectionOrders { get; set; } = true;
+    public bool EnableDropDownIcon { get; set; } = true;
+    private string[] MultiVal = Array.Empty<string>();
+    private void ValueChangeHandler<Countries>(Countries args)
+    {
+        // Here you can customize your code
+    }
+    public class Countries
+    {
+        public string Name { get; set; }
+        public string Code { get; set; }
+    }
+    List<Countries> Country = new List<Countries>
+    {
+        new Countries() { Name = "Australia", Code = "AU" },
+        new Countries() { Name = "Bermuda", Code = "BM" },
+        new Countries() { Name = "Canada", Code = "CA" },
+        new Countries() { Name = "Cameroon", Code = "CM" },
+        new Countries() { Name = "Denmark", Code = "DK" },
+        new Countries() { Name = "France", Code = "FR" },
+        new Countries() { Name = "Finland", Code = "FI" },
+        new Countries() { Name = "Germany", Code = "DE" },
+        new Countries() { Name = "Greenland", Code = "GL" },
+        new Countries() { Name = "Hong Kong", Code = "HK" },
+        new Countries() { Name = "India", Code = "IN" },
+        new Countries() { Name = "Italy", Code = "IT" },
+        new Countries() { Name = "Japan", Code = "JP" },
+        new Countries() { Name = "Mexico", Code = "MX" },
+        new Countries() { Name = "Norway", Code = "NO" },
+        new Countries() { Name = "Poland", Code = "PL" },
+        new Countries() { Name = "Switzerland", Code = "CH" },
+        new Countries() { Name = "United Kingdom", Code = "GB" },
+        new Countries() { Name = "United States", Code = "US" }
+    };
+}
